@@ -34,20 +34,24 @@ from ingest.categorizer import categorize_transactions
 from ingest.parser import parse_file, parse_all_statements
 from ingest.reconciler import reconcile
 
-# On Streamlit Cloud /mount/src/ is read-only — use /tmp/ for all writes
-_ON_CLOUD = Path("/mount/src").exists()
-_WRITABLE_ROOT = Path("/tmp/roofsmart") if _ON_CLOUD else Path("data")
+import shutil
 
-STATEMENTS_DIR = _WRITABLE_ROOT / "statements"
-PROCESSED_DIR = _WRITABLE_ROOT / "processed"
-REPORTS_DIR = _WRITABLE_ROOT / "reports"
+# Committed (read-only) data lives next to app.py in the repo
+_REPO_ROOT = Path(__file__).parent
+_COMMITTED_CSV = _REPO_ROOT / "data" / "processed" / "all_transactions.csv"
+
+# All writes go to /tmp so we never touch the read-only git checkout
+_TMP = Path("/tmp/roofsmart")
+STATEMENTS_DIR = _TMP / "statements"
+PROCESSED_DIR  = _TMP / "processed"
+REPORTS_DIR    = _TMP / "reports"
 TRANSACTIONS_CSV = PROCESSED_DIR / "all_transactions.csv"
 
-# Seed writable processed dir with committed CSV on first cloud run
-_COMMITTED_CSV = Path(__file__).parent / "data" / "processed" / "all_transactions.csv"
-if _ON_CLOUD and not TRANSACTIONS_CSV.exists() and _COMMITTED_CSV.exists():
-    PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
-    import shutil
+# On first boot, copy committed CSV into writable /tmp so the app can update it
+PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
+STATEMENTS_DIR.mkdir(parents=True, exist_ok=True)
+REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+if not TRANSACTIONS_CSV.exists() and _COMMITTED_CSV.exists():
     shutil.copy(_COMMITTED_CSV, TRANSACTIONS_CSV)
 
 # ── Page Config ──────────────────────────────────────────────────────────────
