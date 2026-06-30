@@ -181,9 +181,18 @@ with st.sidebar:
         st.caption("No transactions loaded yet")
 
     st.markdown("---")
+    # Show badge count for review queue
+    _needs_review_count = 0
+    if not df_global.empty and "category" in df_global.columns:
+        _needs_review_count = int(
+            df_global["category"].isin(["UNKNOWN", None, ""]).sum() +
+            df_global["subcategory"].fillna("").str.contains("Needs Manual Review").sum()
+        )
+    _review_label = f"Review Queue ({_needs_review_count})" if _needs_review_count else "Review Queue ✅"
+
     page = st.radio(
         "Navigate",
-        ["Overview", "Transactions", "Reconciliation", "P&L & Cash Flow", "Business Health", "Reports"],
+        ["Overview", "Transactions", _review_label, "Reconciliation", "P&L & Cash Flow", "Business Health", "Reports"],
         label_visibility="collapsed",
     )
 
@@ -386,7 +395,212 @@ elif page == "Transactions":
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# PAGE 3: RECONCILIATION
+# PAGE 3: REVIEW QUEUE
+# ══════════════════════════════════════════════════════════════════════════════
+elif "Review Queue" in page:
+    import re as _re
+
+    st.title("🔍 Review Queue — Uncategorized Transactions")
+
+    if df.empty:
+        st.info("No transactions loaded.")
+        st.stop()
+
+    CATEGORY_OPTIONS = [
+        "REVENUE", "COGS", "OVERHEAD", "PAYROLL", "VEHICLES",
+        "MARKETING", "EQUIPMENT", "TAXES", "TRANSFERS", "UNKNOWN",
+    ]
+
+    SUBCATEGORY_OPTIONS = {
+        "REVENUE":    ["Job Payment", "Insurance Checks", "Customer Financing", "Credit Card Deposit", "Supplements", "Corporate Lead"],
+        "COGS":       ["Supplies and Materials", "Subcontractor Labor", "Equipment Rental", "Permits"],
+        "OVERHEAD":   ["Insurance Expenses", "Software/Subscriptions", "Utilities", "Phone/Utilities", "Office Rent", "Office Supplies", "Bank Fees/Interest"],
+        "PAYROLL":    ["Payroll", "Owner Draw"],
+        "VEHICLES":   ["Fuel", "Maintenance", "Vehicle Payment", "Registration"],
+        "MARKETING":  ["Marketing"],
+        "EQUIPMENT":  ["Tools", "Safety Gear", "Machinery", "Fixed Asset - Vehicle", "Fixed Asset - Equipment"],
+        "TAXES":      ["Sales Tax Paid"],
+        "TRANSFERS":  ["Owner Contribution", "Owner Reimbursement", "Owner Draw", "Loan Proceeds", "Credit Card Payment", "Loan From Partners"],
+        "UNKNOWN":    ["Needs Manual Review"],
+    }
+
+    def _normalize_desc(d: str) -> str:
+        """Strip dates, ref numbers, trailing digits — keep vendor name core."""
+        d = str(d).upper()
+        d = _re.sub(r"\d{2}/\d{2}(?:/\d{2,4})?", "", d)  # dates
+        d = _re.sub(r"#\w+", "", d)                        # ref numbers
+        d = _re.sub(r"\b\d{4,}\b", "", d)                  # long numbers
+        d = _re.sub(r"\s+", " ", d).strip()
+        return d[:40]
+
+    # ── Pull uncategorized rows ───────────────────────────────────────────────
+    needs_review_mask = (
+        df["category"].isin(["UNKNOWN", "", None]) |
+        df["subcategory"].fillna("").str.contains("Needs Manual Review", na=False)
+    )
+    review_df = df[needs_review_mask].copy()
+
+    total_to_review = len(review_df)
+    total_transactions = len(df)
+
+    if review_df.empty:
+        st.success(f"All {total_transactions:,} transactions are categorized! Nothing left to review.")
+        st.stop()
+
+    # ── Build groups sorted by total absolute dollar amount ───────────────────
+    review_df["_norm"] = review_df["description"].apply(_normalize_desc)
+    groups = (
+        review_df.groupby("_norm")
+        .agg(
+            count=("amount", "count"),
+            total=("amount", "sum"),
+            abs_total=("amount", lambda x: x.abs().sum()),
+            date_min=("date", "min"),
+            date_max=("date", "max"),
+            account=("account_last4", lambda x: ", ".join(x.dropna().unique()[:2])),
+        )
+        .reset_index()
+        .sort_values("abs_total", ascending=False)
+        .reset_index(drop=True)
+    )
+
+    # ── Session state for progress ────────────────────────────────────────────
+    if "rq_idx" not in st.session_state:
+        st.session_state.rq_idx = 0
+    if "rq_skipped" not in st.session_state:
+        st.session_state.rq_skipped = set()
+
+    # Build ordered list excluding skipped
+    pending = [i for i in range(len(groups)) if i not in st.session_state.rq_skipped]
+
+    if not pending:
+        st.success("All groups reviewed! Check back after re-processing if new transactions arrive.")
+        if st.button("Reset skipped"):
+            st.session_state.rq_skipped = set()
+            st.rerun()
+        st.stop()
+
+    # Clamp index
+    if st.session_state.rq_idx >= len(pending):
+        st.session_state.rq_idx = 0
+    current_group_pos = st.session_state.rq_idx
+    group_row_idx = pending[current_group_pos]
+    group = groups.iloc[group_row_idx]
+
+    # ── Progress bar ──────────────────────────────────────────────────────────
+    completed = len(groups) - len(pending)
+    pct = completed / len(groups) if len(groups) else 1.0
+    st.progress(pct, text=f"{completed} of {len(groups)} groups cleared — {total_to_review} transactions remaining")
+
+    st.markdown("---")
+
+    # ── Current group card ────────────────────────────────────────────────────
+    net_sign = "+" if group["total"] >= 0 else ""
+    col_info, col_sample = st.columns([1, 2])
+
+    with col_info:
+        st.markdown(f"### {group['_norm']}")
+        st.markdown(f"""
+        | | |
+        |---|---|
+        | **Transactions** | {int(group['count'])} |
+        | **Total** | {net_sign}${group['total']:,.2f} |
+        | **Date range** | {group['date_min']} → {group['date_max']} |
+        | **Account(s)** | {group['account']} |
+        """)
+
+    with col_sample:
+        st.caption("Sample transactions")
+        sample = review_df[review_df["_norm"] == group["_norm"]][
+            ["date", "description", "amount", "account_last4"]
+        ].head(5)
+        st.dataframe(sample.reset_index(drop=True), use_container_width=True, hide_index=True)
+
+    st.markdown("---")
+
+    # ── Assignment form ───────────────────────────────────────────────────────
+    col_cat, col_sub, col_apply = st.columns([1, 1, 1])
+
+    with col_cat:
+        chosen_cat = st.selectbox(
+            "Category",
+            CATEGORY_OPTIONS,
+            key=f"rq_cat_{group_row_idx}",
+        )
+
+    with col_sub:
+        sub_options = SUBCATEGORY_OPTIONS.get(chosen_cat, [""])
+        chosen_sub = st.selectbox(
+            "Subcategory",
+            sub_options,
+            key=f"rq_sub_{group_row_idx}",
+        )
+
+    with col_apply:
+        apply_all = st.checkbox(
+            f"Apply to all {int(group['count'])} matching transactions",
+            value=True,
+            key=f"rq_all_{group_row_idx}",
+        )
+        apply_similar = st.checkbox(
+            "Also apply to similar descriptions (fuzzy)",
+            value=False,
+            key=f"rq_fuzzy_{group_row_idx}",
+        )
+
+    col_btn1, col_btn2, col_btn3, col_btn_spacer = st.columns([1, 1, 1, 3])
+
+    with col_btn1:
+        if st.button("✅ Assign & Next", type="primary", use_container_width=True):
+            norm_key = group["_norm"]
+
+            if apply_all:
+                mask = df["description"].apply(_normalize_desc) == norm_key
+            else:
+                # Only the single top transaction in this group
+                target_idx = review_df[review_df["_norm"] == norm_key].index[:1]
+                mask = df.index.isin(target_idx)
+
+            if apply_similar:
+                # Also match descriptions that start with the same first word
+                first_word = norm_key.split()[0] if norm_key.split() else norm_key
+                mask = mask | (df["description"].str.upper().str.startswith(first_word))
+
+            df.loc[mask, "category"] = chosen_cat
+            df.loc[mask, "subcategory"] = chosen_sub
+            df.loc[mask, "confidence"] = 1.0
+
+            save_transactions(df)
+            updated = int(mask.sum())
+            st.toast(f"Saved: {updated} transaction(s) → {chosen_cat} / {chosen_sub}", icon="✅")
+
+            # Advance to next
+            st.session_state.rq_idx = min(current_group_pos + 1, len(pending) - 1)
+            st.rerun()
+
+    with col_btn2:
+        if st.button("⏭ Skip", use_container_width=True):
+            st.session_state.rq_skipped.add(group_row_idx)
+            st.rerun()
+
+    with col_btn3:
+        if st.button("⬅ Previous", use_container_width=True):
+            st.session_state.rq_idx = max(current_group_pos - 1, 0)
+            st.rerun()
+
+    st.markdown("---")
+
+    # ── All remaining groups as a mini-table for quick overview ──────────────
+    with st.expander("📋 All pending groups"):
+        pending_groups = groups.iloc[pending][["_norm", "count", "total", "abs_total", "date_min", "date_max"]].copy()
+        pending_groups.columns = ["Description Pattern", "Count", "Net Total", "Abs Total", "First Date", "Last Date"]
+        pending_groups["Net Total"] = pending_groups["Net Total"].apply(lambda x: f"${x:,.0f}")
+        pending_groups["Abs Total"] = pending_groups["Abs Total"].apply(lambda x: f"${x:,.0f}")
+        st.dataframe(pending_groups.reset_index(drop=True), use_container_width=True, hide_index=True)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# PAGE 4: RECONCILIATION
 # ══════════════════════════════════════════════════════════════════════════════
 elif page == "Reconciliation":
     st.title("🔍 Reconciliation Status")
