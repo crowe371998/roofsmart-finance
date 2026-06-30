@@ -148,173 +148,379 @@ def _parse_csv(path: Path) -> pd.DataFrame:
 
 # ── Excel Parsers ────────────────────────────────────────────────────────────
 
+_HEADER_KEYWORDS = {"date", "description", "amount", "memo", "payee", "debit", "credit", "balance"}
+
+
+def _find_header_row(raw_df: pd.DataFrame) -> int:
+    """Scan rows to find the actual header row (returns row index, 0-based)."""
+    for i, row in raw_df.iterrows():
+        vals = {str(v).strip().lower() for v in row.values if str(v).strip() not in ("nan", "")}
+        if len(vals & _HEADER_KEYWORDS) >= 2:
+            return i
+    return 0
+
+
+def _parse_excel_sheet(xl: pd.ExcelFile, sheet: str) -> pd.DataFrame:
+    """Parse a single Excel sheet, auto-detecting the header row."""
+    # First pass: read raw with no header to locate actual header row
+    raw = xl.parse(sheet, header=None, dtype=str)
+    if raw.empty:
+        return _empty_df()
+    header_row = _find_header_row(raw)
+    # Second pass: re-read with correct header
+    df = xl.parse(sheet, header=header_row, dtype=str)
+    return df
+
+
 def _parse_excel(path: Path) -> pd.DataFrame:
-    """Parse an Excel bank export."""
+    """Parse an Excel bank export, handling multi-row header formats (e.g. AMEX)."""
     try:
         xl = pd.ExcelFile(path)
-        frames = []
+        best: pd.DataFrame = _empty_df()
         for sheet in xl.sheet_names:
-            df = xl.parse(sheet)
-            if len(df.columns) >= 2:
-                frames.append(df)
-        if not frames:
-            return _empty_df()
-        # Try the largest sheet
-        df = max(frames, key=len)
+            raw = _parse_excel_sheet(xl, sheet)
+            if len(raw.columns) < 2:
+                continue
+            candidate = _dataframe_to_unified(raw, path.name)
+            if len(candidate) > len(best):
+                best = candidate
+        return best
     except Exception as exc:
         logger.warning("Excel read error %s: %s", path.name, exc)
         return _empty_df()
 
-    # Save to temp CSV and reuse CSV parser logic
-    tmp = path.with_suffix(".tmp_csv")
-    try:
-        df.to_csv(tmp, index=False)
-        result = _parse_csv(tmp)
-        result["source_file"] = path.name
-        return result
-    finally:
-        if tmp.exists():
-            tmp.unlink()
+
+def _dataframe_to_unified(df: pd.DataFrame, source_name: str) -> pd.DataFrame:
+    """Convert a raw DataFrame (from Excel or CSV) into unified format."""
+    df = df.copy()
+    df.columns = [str(c).strip().lower().replace(" ", "_") for c in df.columns]
+
+    col_map = {
+        "date": ["date", "transaction_date", "trans_date", "posted_date", "posting_date"],
+        "description": ["description", "receipt", "memo", "payee", "transaction_description", "details", "narration"],
+        "amount": ["amount", "transaction_amount", "debit_amount", "credit_amount", "value"],
+        "debit": ["debit", "withdrawals", "withdrawal"],
+        "credit": ["credit", "deposits", "deposit"],
+        "balance": ["balance", "running_balance", "available_balance", "ending_balance"],
+        "account": ["account", "account_#", "account_number", "account_no", "acct", "card_member"],
+    }
+
+    def find_col(candidates):
+        for c in candidates:
+            if c in df.columns:
+                return c
+        return None
+
+    date_col = find_col(col_map["date"])
+    desc_col = find_col(col_map["description"])
+    amount_col = find_col(col_map["amount"])
+    debit_col = find_col(col_map["debit"])
+    credit_col = find_col(col_map["credit"])
+    balance_col = find_col(col_map["balance"])
+    account_col = find_col(col_map["account"])
+
+    rows = []
+    for _, row in df.iterrows():
+        date_val = str(row.get(date_col, "") if date_col else "").strip()
+        if not date_val or date_val.lower() in ("nan", "none", ""):
+            continue
+        date = _normalize_date(date_val)
+        if not date:
+            continue
+
+        desc = str(row.get(desc_col, "") if desc_col else "").strip()
+        # Clean multiline descriptions from AMEX (take first line)
+        desc = desc.split("\n")[0].strip()
+        if not desc or desc.lower() in ("nan", "none"):
+            continue
+
+        balance = _normalize_amount(row.get(balance_col, 0) if balance_col else 0)
+
+        if amount_col and amount_col in row:
+            amt_raw = str(row[amount_col]).strip()
+            amount = _normalize_amount(amt_raw)
+        elif debit_col or credit_col:
+            debit = _normalize_amount(row.get(debit_col, 0) if debit_col else 0)
+            credit = _normalize_amount(row.get(credit_col, 0) if credit_col else 0)
+            amount = credit - abs(debit)
+        else:
+            amount = 0.0
+
+        acct_raw = str(row.get(account_col, "") if account_col else "")
+        last4 = re.sub(r"\D", "", acct_raw)[-4:] if acct_raw and acct_raw.lower() not in ("nan", "none") else ""
+
+        rows.append({
+            "date": date,
+            "description": desc,
+            "amount": amount,
+            "type": "credit" if amount >= 0 else "debit",
+            "balance": balance,
+            "account_last4": last4,
+            "account_name": "",
+            "source_file": source_name,
+            "category": "",
+            "subcategory": "",
+            "confidence": 0.0,
+        })
+
+    return pd.DataFrame(rows, columns=UNIFIED_COLUMNS) if rows else _empty_df()
 
 
 # ── PDF Parsers ──────────────────────────────────────────────────────────────
 
+# PNC checking: "04/03 1,400.00 Deposit 001232152"
+_PNC_CHK_TXN = re.compile(
+    r"^(\d{2}/\d{2})\s+([\d,]+\.\d{2})\s+(.+?)(?:\s+\d{9,20})?$"
+)
+# PNC credit card: "04/10 04/10 2490641346K0VMN8P WAVE - *SALTYS MEDIA LLC ... $258.75"
+_PNC_CC_TXN = re.compile(
+    r"^(\d{2}/\d{2})\s+\d{2}/\d{2}\s+\S+\s+(.+?)\s+\$?([\d,]+\.\d{2})$"
+)
+# Section headers that tell us debit vs credit context
+_DEDUCTION_HEADERS = re.compile(
+    r"(checks and other deductions|debit card purchases|pos purchases|"
+    r"atm.*debit|ach deductions|service charge|fees|purchases)", re.I
+)
+_ADDITION_HEADERS = re.compile(
+    r"(deposits and other additions|ach additions|atm deposits|credits|"
+    r"your transactions)", re.I
+)
+
+
 def _parse_pdf(path: Path) -> pd.DataFrame:
-    """Parse a PDF bank statement using pdfplumber."""
+    """Parse a PNC bank statement PDF (checking or credit card)."""
     try:
         import pdfplumber  # type: ignore
     except ImportError:
         logger.warning("pdfplumber not installed — skipping PDF %s", path.name)
         return _empty_df()
 
-    rows = []
-    date_pattern = re.compile(
-        r"\b(\d{1,2}[/-]\d{1,2}[/-]\d{2,4}|\w{3,9}\s+\d{1,2},?\s+\d{4}|\d{4}-\d{2}-\d{2})\b"
-    )
-    amount_pattern = re.compile(r"-?\$?[\d,]+\.\d{2}")
-    account_pattern = re.compile(r"(?:x+|[*]+|ending in)\s*(\d{4})", re.IGNORECASE)
-
-    last4 = ""
-    account_name = ""
-
     try:
         with pdfplumber.open(path) as pdf:
             full_text = "\n".join(page.extract_text() or "" for page in pdf.pages)
-
-            # Try to extract account number
-            m = account_pattern.search(full_text)
-            if m:
-                last4 = m.group(1)
-
-            # Try to detect bank/account name from header
-            first_lines = full_text[:500].split("\n")
-            for line in first_lines[:5]:
-                if any(w in line.lower() for w in ["checking", "savings", "credit", "account"]):
-                    account_name = line.strip()[:50]
-                    break
-
-            for page in pdf.pages:
-                # Try table extraction first
-                tables = page.extract_tables()
-                for table in tables:
-                    if not table:
-                        continue
-                    for table_row in table[1:]:  # skip header row
-                        if not table_row:
-                            continue
-                        cells = [str(c or "").strip() for c in table_row]
-                        # Need at least date + description + amount
-                        if len(cells) < 3:
-                            continue
-
-                        # Find date cell
-                        date_cell = ""
-                        for c in cells:
-                            if date_pattern.search(c):
-                                date_cell = c
-                                break
-                        if not date_cell:
-                            continue
-
-                        # Find amounts
-                        amounts = []
-                        for c in cells:
-                            matches = amount_pattern.findall(c.replace(",", ""))
-                            amounts.extend(matches)
-
-                        # Description: non-date, non-amount cell
-                        desc = ""
-                        for c in cells:
-                            if c != date_cell and c not in amounts and len(c) > 3:
-                                desc = c
-                                break
-
-                        if not amounts:
-                            continue
-
-                        # Determine debit/credit from position
-                        amount_vals = [_normalize_amount(a) for a in amounts]
-                        if len(amount_vals) == 1:
-                            amount = amount_vals[0]
-                        elif len(amount_vals) == 2:
-                            # debit column, credit column
-                            amount = amount_vals[1] if amount_vals[0] == 0 else -abs(amount_vals[0])
-                        else:
-                            amount = amount_vals[0]
-                            balance = amount_vals[-1]
-
-                        balance = amount_vals[-1] if len(amount_vals) > 1 else 0.0
-
-                        rows.append({
-                            "date": _normalize_date(date_cell),
-                            "description": desc,
-                            "amount": amount,
-                            "type": "credit" if amount >= 0 else "debit",
-                            "balance": balance,
-                            "account_last4": last4,
-                            "account_name": account_name,
-                            "source_file": path.name,
-                            "category": "",
-                            "subcategory": "",
-                            "confidence": 0.0,
-                        })
-
-                # Fallback: line-by-line parse if no tables found
-                if not rows:
-                    text = page.extract_text() or ""
-                    for line in text.split("\n"):
-                        dates = date_pattern.findall(line)
-                        amounts = amount_pattern.findall(line.replace(",", ""))
-                        if dates and amounts:
-                            date_str = dates[0] if isinstance(dates[0], str) else " ".join(dates[0])
-                            amount_str = amounts[-1]
-                            # Remove date and amounts from line to get description
-                            desc = line
-                            for d in dates:
-                                desc = desc.replace(d if isinstance(d, str) else " ".join(d), "")
-                            for a in amounts:
-                                desc = desc.replace(a, "")
-                            desc = re.sub(r"\s+", " ", desc).strip()
-
-                            amount = _normalize_amount(amount_str)
-                            rows.append({
-                                "date": _normalize_date(date_str),
-                                "description": desc,
-                                "amount": amount,
-                                "type": "credit" if amount >= 0 else "debit",
-                                "balance": 0.0,
-                                "account_last4": last4,
-                                "account_name": account_name,
-                                "source_file": path.name,
-                                "category": "",
-                                "subcategory": "",
-                                "confidence": 0.0,
-                            })
     except Exception as exc:
-        logger.warning("PDF parse error %s: %s", path.name, exc)
+        logger.warning("PDF open error %s: %s", path.name, exc)
         return _empty_df()
 
+    # Extract account last4
+    last4 = ""
+    acct_m = re.search(r"(?:Account #|Account Number|XXXX[- ]+)(?:XXXX[- ]+){0,3}(\d{4})", full_text, re.I)
+    if acct_m:
+        last4 = acct_m.group(1)
+    if not last4:
+        acct_m2 = re.search(r"XX-XXXX-(\d{4})", full_text)
+        if acct_m2:
+            last4 = acct_m2.group(1)
+
+    # Extract statement year from "For the Period MM/DD/YYYY" or "closing date MM/DD/YY"
+    year = None
+    period_m = re.search(r"For the Period \d{2}/\d{2}/(\d{4})", full_text)
+    if period_m:
+        year = period_m.group(1)
+    if not year:
+        close_m = re.search(r"(?:closing date|Statement Date)\s+\d{2}/\d{2}/(\d{2,4})", full_text, re.I)
+        if close_m:
+            y = close_m.group(1)
+            year = f"20{y}" if len(y) == 2 else y
+    if not year:
+        year = str(pd.Timestamp.now().year)
+
+    # Credit card statements have "TRANS DATE POST DATE" header and "Your transactions" section
+    # Checking statements may mention "credit card" in cross-sell text — be specific
+    is_credit_card = bool(re.search(r"TRANS DATE\s+POST DATE|Your transactions\s*\n.*TRANS DATE", full_text, re.I | re.DOTALL))
+    account_name = "Credit Card" if is_credit_card else "Business Checking"
+
+    rows = []
+
+    if is_credit_card:
+        rows = _parse_pnc_cc_text(full_text, year, last4, account_name, path.name)
+    else:
+        rows = _parse_pnc_checking_text(full_text, year, last4, account_name, path.name)
+
+    # Fallback: generic line-by-line if specific parsers got nothing
+    if not rows:
+        rows = _parse_pdf_generic(full_text, year, last4, account_name, path.name)
+
     return pd.DataFrame(rows, columns=UNIFIED_COLUMNS) if rows else _empty_df()
+
+
+def _parse_pnc_checking_text(text: str, year: str, last4: str, acct_name: str, fname: str) -> list:
+    """Parse PNC Business Checking PDF text into transaction rows."""
+    rows = []
+    is_deduction = False
+    in_activity = False
+
+    for line in text.split("\n"):
+        stripped = line.strip()
+
+        # Track when we enter the Activity Detail section
+        if "Activity Detail" in stripped:
+            in_activity = True
+            continue
+        if not in_activity:
+            continue
+
+        # Track debit/credit context from section headers
+        if _DEDUCTION_HEADERS.search(stripped):
+            is_deduction = True
+            continue
+        if _ADDITION_HEADERS.search(stripped):
+            is_deduction = False
+            continue
+
+        # Skip header rows like "Date Transaction Reference posted Amount description number"
+        if re.match(r"Date\s+Transaction", stripped, re.I):
+            continue
+        if re.match(r"posted\s+Amount", stripped, re.I):
+            continue
+
+        m = _PNC_CHK_TXN.match(stripped)
+        if not m:
+            continue
+
+        date_mm_dd, amount_str, desc = m.group(1), m.group(2), m.group(3).strip()
+        # Skip daily balance rows — description starts with another MM/DD date
+        if re.match(r"^\d{2}/\d{2}", desc):
+            continue
+        # Skip balance summary rows with multiple amounts
+        if re.match(r"^\d{2}/\d{2}\s+[\d,]+\.\d{2}\s+[\d,]+\.\d{2}", stripped):
+            continue
+
+        try:
+            month, day = date_mm_dd.split("/")
+            date_str = f"{year}-{month}-{day}"
+        except Exception:
+            continue
+
+        amount = _normalize_amount(amount_str)
+        if is_deduction:
+            amount = -abs(amount)
+
+        rows.append({
+            "date": date_str,
+            "description": desc,
+            "amount": amount,
+            "type": "credit" if amount >= 0 else "debit",
+            "balance": 0.0,
+            "account_last4": last4,
+            "account_name": acct_name,
+            "source_file": fname,
+            "category": "",
+            "subcategory": "",
+            "confidence": 0.0,
+        })
+
+    return rows
+
+
+def _parse_pnc_cc_text(text: str, year: str, last4: str, acct_name: str, fname: str) -> list:
+    """Parse PNC Credit Card PDF text into transaction rows."""
+    rows = []
+    in_transactions = False
+
+    # Extract year from closing date more carefully for credit cards
+    # Closing date like "04/18/25" → use that year
+    cc_year = year
+    close_m = re.search(r"Statement closing date\s+(\d{2})/\d{2}/(\d{2,4})", text, re.I)
+    if close_m:
+        y = close_m.group(2)
+        cc_year = f"20{y}" if len(y) == 2 else y
+    # Detect prior-month transactions (closing month determines year boundary)
+    close_month = int(close_m.group(1)) if close_m else 12
+
+    for line in text.split("\n"):
+        stripped = line.strip()
+
+        if "Your transactions" in stripped or "TRANS DATE" in stripped:
+            in_transactions = True
+            continue
+        if not in_transactions:
+            continue
+
+        # Skip card member lines and header rows
+        if re.match(r"(TRANS DATE|Card number|MCC:|continued)", stripped, re.I):
+            continue
+
+        # Try credit card format: "04/10 04/10 REFNUM DESCRIPTION $AMOUNT"
+        m = _PNC_CC_TXN.match(stripped)
+        if not m:
+            # Try simpler: "MM/DD MM/DD REFNUM DESC AMOUNT" where amount may lack $
+            m2 = re.match(
+                r"^(\d{2}/\d{2})\s+\d{2}/\d{2}\s+\S+\s+(.+?)\s+([\d,]+\.\d{2})$",
+                stripped
+            )
+            if not m2:
+                continue
+            date_mm_dd, desc, amount_str = m2.group(1), m2.group(2), m2.group(3)
+        else:
+            date_mm_dd, desc, amount_str = m.group(1), m.group(2), m.group(3)
+
+        try:
+            month, day = date_mm_dd.split("/")
+            # If transaction month > closing month, it's from previous year
+            txn_month = int(month)
+            txn_year = cc_year if txn_month <= close_month else str(int(cc_year) - 1)
+            date_str = f"{txn_year}-{month}-{day}"
+        except Exception:
+            continue
+
+        # Credit card charges are expenses (negative), payments/credits are positive
+        desc_lower = desc.lower()
+        is_payment = any(w in desc_lower for w in ["payment", "credit", "return", "refund"])
+        amount = _normalize_amount(amount_str)
+        if not is_payment:
+            amount = -abs(amount)
+
+        rows.append({
+            "date": date_str,
+            "description": desc.strip(),
+            "amount": amount,
+            "type": "credit" if amount >= 0 else "debit",
+            "balance": 0.0,
+            "account_last4": last4,
+            "account_name": acct_name,
+            "source_file": fname,
+            "category": "",
+            "subcategory": "",
+            "confidence": 0.0,
+        })
+
+    return rows
+
+
+def _parse_pdf_generic(text: str, year: str, last4: str, acct_name: str, fname: str) -> list:
+    """Generic fallback: find lines with MM/DD date + dollar amount."""
+    rows = []
+    date_pat = re.compile(r"(\d{2}/\d{2})")
+    amount_pat = re.compile(r"\$?([\d,]+\.\d{2})")
+
+    for line in text.split("\n"):
+        stripped = line.strip()
+        d = date_pat.search(stripped)
+        a = amount_pat.findall(stripped.replace(",", ""))
+        if not d or not a:
+            continue
+        try:
+            month, day = d.group(1).split("/")
+            date_str = f"{year}-{month}-{day}"
+        except Exception:
+            continue
+        desc = stripped
+        amount = _normalize_amount(a[-1])
+        rows.append({
+            "date": date_str,
+            "description": desc,
+            "amount": amount,
+            "type": "credit" if amount >= 0 else "debit",
+            "balance": 0.0,
+            "account_last4": last4,
+            "account_name": acct_name,
+            "source_file": fname,
+            "category": "",
+            "subcategory": "",
+            "confidence": 0.0,
+        })
+    return rows
 
 
 # ── OFX/QBO/QFX Parsers ─────────────────────────────────────────────────────
@@ -532,5 +738,5 @@ def parse_all_statements(statements_dir: Path, processed_dir: Path) -> pd.DataFr
 
     out_path = processed_dir / "all_transactions.csv"
     combined.to_csv(out_path, index=False)
-    console.print(f"[green]Saved {len(combined)} transactions → {out_path}[/green]")
+    console.print(f"[green]Saved {len(combined)} transactions to {out_path}[/green]")
     return combined

@@ -1,5 +1,5 @@
 ﻿data/statements/
-data/processed/
+data/processed/*.json
 data/reports/
 __pycache__/
 *.pyc
