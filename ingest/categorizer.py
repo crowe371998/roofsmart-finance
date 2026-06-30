@@ -70,7 +70,7 @@ _RULES: list[tuple[str, str, str, float]] = [
     # PAYROLL
     # -----------------------------------------------------------------------
     (r"\badp\b|\bgusto\b|\bpaychex\b|\bpaylocity\b|\brippling\b", "PAYROLL", "Payroll", 0.95),
-    (r"eepay.?garn|eepay/garn|fndtn fin", "PAYROLL", "Payroll Garnishment", 0.90),
+    (r"eepay.?garn|eepay/garn", "PAYROLL", "Payroll Garnishment", 0.90),
     (r"\bpayroll\b", "PAYROLL", "Payroll", 0.85),
 
     # -----------------------------------------------------------------------
@@ -174,12 +174,11 @@ _RULES: list[tuple[str, str, str, float]] = [
     (r"improvifi", "REVENUE", "Customer Financing", 0.95),
     (r"wisetack", "REVENUE", "Customer Financing", 0.95),
     (r"staxpayments|staxpmtsmerchant|stax", "REVENUE", "Credit Card Deposit", 0.92),
-    (r"corporate ach (deposit|payments|purchase|sale)|corporate ach svc", "REVENUE", "Customer Payment", 0.75),
-    (r"mission path con", "REVENUE", "Customer Payment", 0.80),
+    (r"corporate ach deposit", "REVENUE", "Customer Payment", 0.80),
     (r"mobile deposit|\bdeposit\b", "REVENUE", "Customer Payment", 0.65),
     (r"claim payment|insurance check|insurance loss|claim settlement", "REVENUE", "Insurance Checks", 0.90),
     (r"\bsupplement\b|roe payment|roof supplement", "REVENUE", "Supplements", 0.95),
-    (r"job deposit|contract deposit|roof maxx", "REVENUE", "Job Payment", 0.88),
+    (r"job deposit|contract deposit", "REVENUE", "Job Payment", 0.88),
     (r"lowe'?s.*ime|ime.*lowe'?s|corporate lead", "REVENUE", "Corporate Lead", 0.90),
     # ATM / cash withdrawals — likely owner draw or crew pay, flag for review
     (r"atm withdrawal|^withdrawal$|^withdrawal\b", "TRANSFERS", "Cash Withdrawal", 0.70),
@@ -188,7 +187,74 @@ _RULES: list[tuple[str, str, str, float]] = [
 
 def _rule_categorize(description: str, amount: float) -> tuple[str, str, float] | None:
     """Return (category, subcategory, confidence) from rules, or None if no match."""
-    desc = str(description).lower()
+    desc = str(description)
+    inflow = float(amount) > 0  # positive = money coming IN
+
+    # ── Sign-aware overrides (checked before general rules) ──────────────────
+    # Roof Maxx: outflow = we're paying Roof Maxx for product (COGS)
+    #            inflow  = Roof Maxx paying us a commission/payout (REVENUE)
+    # Catches: BLS*Roof Maxx, ACH Roof Maxx, ROOF MAXX WESTERVILLE, ACH Credit Roof Maxx Techno
+    if re.search(r"roof maxx", desc, re.IGNORECASE):
+        if inflow:
+            return "REVENUE", "Job Payment", 0.88
+        else:
+            return "COGS", "Roof Maxx Product", 0.95
+
+    # Stax: positive = customer deposit (REVENUE), negative = processing fee (OVERHEAD)
+    if re.search(r"staxpayments|staxpmtsmerchant|stax", desc, re.IGNORECASE):
+        if inflow:
+            return "REVENUE", "Credit Card Deposit", 0.92
+        else:
+            return "OVERHEAD", "Payment Processing Fees", 0.92
+
+    # Wisetack: positive = customer financing deposit (REVENUE), negative = fee (OVERHEAD)
+    if re.search(r"wisetack", desc, re.IGNORECASE):
+        if inflow:
+            return "REVENUE", "Customer Financing", 0.95
+        else:
+            return "OVERHEAD", "Payment Processing Fees", 0.90
+
+    # Improvifi: same pattern
+    if re.search(r"improvifi", desc, re.IGNORECASE):
+        if inflow:
+            return "REVENUE", "Customer Financing", 0.95
+        else:
+            return "OVERHEAD", "Payment Processing Fees", 0.90
+
+    # Foundation Finance: inflow = customer financing deposit (REVENUE), outflow = garnishment (PAYROLL)
+    if re.search(r"fndtn fin|foundation fin", desc, re.IGNORECASE):
+        if inflow:
+            return "REVENUE", "Customer Financing", 0.85
+        else:
+            return "PAYROLL", "Payroll Garnishment", 0.90
+
+    # Mission Path Con: outflow = subcontractor payment (COGS)
+    if re.search(r"mission path con", desc, re.IGNORECASE):
+        return "COGS", "Subcontractor Labor", 0.85
+
+    # Corporate ACH: inflow = customer payment, outflow = unknown
+    if re.search(r"corporate ach (payments|purchase|sale)|corporate ach svc", desc, re.IGNORECASE):
+        if inflow:
+            return "REVENUE", "Customer Payment", 0.70
+        else:
+            return "UNKNOWN", "Needs Manual Review", 0.50
+
+    # Ohio Sales Return: outflow = sales tax payment, inflow = tax refund
+    if re.search(r"ohio sales return|ohsalestvl|ohsalesutx", desc, re.IGNORECASE):
+        if inflow:
+            return "TAXES", "Tax Refund", 0.88
+        else:
+            return "TAXES", "Sales Tax Paid", 0.90
+
+    # Generic deposit on checking = likely customer payment
+    if re.search(r"^deposit$|\bmobile deposit\b", desc, re.IGNORECASE) and inflow:
+        return "REVENUE", "Customer Payment", 0.65
+
+    # ATM / generic withdrawal
+    if re.search(r"atm withdrawal|^withdrawal$", desc, re.IGNORECASE) and not inflow:
+        return "TRANSFERS", "Cash Withdrawal", 0.70
+
+    # ── General rules ────────────────────────────────────────────────────────
     for pattern, cat, sub, conf in _RULES:
         if re.search(pattern, desc, re.IGNORECASE):
             return cat, sub, conf
