@@ -51,6 +51,7 @@ _RULES: list[tuple[str, str, str, float]] = [
     # -----------------------------------------------------------------------
     (r"amex epayment", "TRANSFERS", "Credit Card Payment", 0.98),
     (r"online credit card pmt|thank you for your pmt.*3453|online payment.*thank you|mobile payment.*thank you", "TRANSFERS", "Credit Card Payment", 0.97),
+    (r"online transfer to.*1908|xxxxx1908|0000004121731908", "TRANSFERS", "Loan Repayment to Partners", 0.98),
     (r"online transfer (to|from)|online payment to \d", "TRANSFERS", "Inter-Account Transfer", 0.95),
     (r"\bline of credit\b|\bloc\b.*\bdraw\b|\bloc\b.*\badvance\b", "TRANSFERS", "Loan Proceeds", 0.92),
     (r"\bzelle\b|\bwire transfer\b|\baccount transfer\b|\binternal transfer\b", "TRANSFERS", "Loan From Partners", 0.88),
