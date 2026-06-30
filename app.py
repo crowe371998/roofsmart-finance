@@ -34,10 +34,21 @@ from ingest.categorizer import categorize_transactions
 from ingest.parser import parse_file, parse_all_statements
 from ingest.reconciler import reconcile
 
-STATEMENTS_DIR = Path("data/statements")
-PROCESSED_DIR = Path("data/processed")
-REPORTS_DIR = Path("data/reports")
+# On Streamlit Cloud /mount/src/ is read-only — use /tmp/ for all writes
+_ON_CLOUD = Path("/mount/src").exists()
+_WRITABLE_ROOT = Path("/tmp/roofsmart") if _ON_CLOUD else Path("data")
+
+STATEMENTS_DIR = _WRITABLE_ROOT / "statements"
+PROCESSED_DIR = _WRITABLE_ROOT / "processed"
+REPORTS_DIR = _WRITABLE_ROOT / "reports"
 TRANSACTIONS_CSV = PROCESSED_DIR / "all_transactions.csv"
+
+# Seed writable processed dir with committed CSV on first cloud run
+_COMMITTED_CSV = Path(__file__).parent / "data" / "processed" / "all_transactions.csv"
+if _ON_CLOUD and not TRANSACTIONS_CSV.exists() and _COMMITTED_CSV.exists():
+    PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
+    import shutil
+    shutil.copy(_COMMITTED_CSV, TRANSACTIONS_CSV)
 
 # ── Page Config ──────────────────────────────────────────────────────────────
 st.set_page_config(
