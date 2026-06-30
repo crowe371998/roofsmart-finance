@@ -141,28 +141,30 @@ with st.sidebar:
         st.success(f"Saved {len(uploaded_files)} file(s) to data/statements/")
 
     if st.button("⚡ Process All Statements", type="primary", use_container_width=True):
-        PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
-        STATEMENTS_DIR.mkdir(parents=True, exist_ok=True)
+        try:
+            PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
 
-        # Parse uploaded files if any; otherwise load existing CSV
-        has_statements = any(STATEMENTS_DIR.iterdir()) if STATEMENTS_DIR.exists() else False
-        if has_statements:
-            with st.spinner("Parsing statements..."):
-                df = parse_all_statements(STATEMENTS_DIR, PROCESSED_DIR)
-        elif TRANSACTIONS_CSV.exists():
-            df = pd.read_csv(TRANSACTIONS_CSV)
-            st.info("No new files uploaded — using existing transaction data for categorization.")
-        else:
-            df = pd.DataFrame()
+            # If files were uploaded, parse them; otherwise use existing CSV
+            uploaded_statement_files = list(STATEMENTS_DIR.iterdir()) if STATEMENTS_DIR.exists() else []
+            if uploaded_statement_files:
+                with st.spinner("Parsing uploaded statements..."):
+                    df = parse_all_statements(STATEMENTS_DIR, PROCESSED_DIR)
+            elif TRANSACTIONS_CSV.exists():
+                df = pd.read_csv(TRANSACTIONS_CSV)
+                st.info(f"Loaded {len(df)} existing transactions — running AI categorization.")
+            else:
+                df = pd.DataFrame()
 
-        if not df.empty:
-            with st.spinner("Categorizing with AI..."):
-                df = categorize_transactions(df)
-            save_transactions(df)
-            st.success(f"Processed {len(df)} transactions!")
-            st.rerun()
-        else:
-            st.warning("No transactions found. Upload statement files to begin.")
+            if not df.empty:
+                with st.spinner("Categorizing with AI..."):
+                    df = categorize_transactions(df)
+                save_transactions(df)
+                st.success(f"Done! {len(df)} transactions categorized.")
+                st.rerun()
+            else:
+                st.warning("No transactions found. Upload statement files using the uploader above.")
+        except Exception as e:
+            st.error(f"Error: {e}")
 
     st.markdown("---")
     df_global = load_transactions()
