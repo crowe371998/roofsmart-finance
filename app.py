@@ -458,189 +458,159 @@ elif page == "Transactions":
 elif "Review Queue" in page:
     import re as _re
 
-    st.title("🔍 Review Queue — Uncategorized Transactions")
+    st.title("🔍 Review Queue")
 
     if df.empty:
         st.info("No transactions loaded.")
         st.stop()
 
     _cats = load_categories()
-    CATEGORY_OPTIONS = list(_cats.keys())
-    SUBCATEGORY_OPTIONS = _cats
-
-    def _normalize_desc(d: str) -> str:
-        """Strip dates, ref numbers, trailing digits — keep vendor name core."""
-        d = str(d).upper()
-        d = _re.sub(r"\d{2}/\d{2}(?:/\d{2,4})?", "", d)  # dates
-        d = _re.sub(r"#\w+", "", d)                        # ref numbers
-        d = _re.sub(r"\b\d{4,}\b", "", d)                  # long numbers
-        d = _re.sub(r"\s+", " ", d).strip()
-        return d[:40]
+    CAT_OPTIONS = list(_cats.keys())
 
     # ── Pull uncategorized rows ───────────────────────────────────────────────
     needs_review_mask = (
-        df["category"].isin(["UNKNOWN", "", None]) |
+        df["category"].isin(["UNKNOWN", "", None, "nan"]) |
         df["subcategory"].fillna("").str.contains("Needs Manual Review", na=False)
     )
     review_df = df[needs_review_mask].copy()
 
-    total_to_review = len(review_df)
-    total_transactions = len(df)
-
     if review_df.empty:
-        st.success(f"All {total_transactions:,} transactions are categorized! Nothing left to review.")
+        st.success(f"All {len(df):,} transactions are categorized!")
         st.stop()
 
-    # ── Build groups sorted by total absolute dollar amount ───────────────────
-    review_df["_norm"] = review_df["description"].apply(_normalize_desc)
-    groups = (
-        review_df.groupby("_norm")
-        .agg(
-            count=("amount", "count"),
-            total=("amount", "sum"),
-            abs_total=("amount", lambda x: x.abs().sum()),
-            date_min=("date", "min"),
-            date_max=("date", "max"),
-            account=("account_last4", lambda x: ", ".join(x.dropna().unique()[:2])),
-        )
-        .reset_index()
-        .sort_values("abs_total", ascending=False)
-        .reset_index(drop=True)
+    total_remaining = len(review_df)
+    st.progress(
+        1 - total_remaining / len(df),
+        text=f"{len(df) - total_remaining:,} of {len(df):,} transactions categorized — {total_remaining} remaining"
     )
-
-    # ── Session state for progress ────────────────────────────────────────────
-    if "rq_idx" not in st.session_state:
-        st.session_state.rq_idx = 0
-    if "rq_skipped" not in st.session_state:
-        st.session_state.rq_skipped = set()
-
-    # Build ordered list excluding skipped
-    pending = [i for i in range(len(groups)) if i not in st.session_state.rq_skipped]
-
-    if not pending:
-        st.success("All groups reviewed! Check back after re-processing if new transactions arrive.")
-        if st.button("Reset skipped"):
-            st.session_state.rq_skipped = set()
-            st.rerun()
-        st.stop()
-
-    # Clamp index
-    if st.session_state.rq_idx >= len(pending):
-        st.session_state.rq_idx = 0
-    current_group_pos = st.session_state.rq_idx
-    group_row_idx = pending[current_group_pos]
-    group = groups.iloc[group_row_idx]
-
-    # ── Progress bar ──────────────────────────────────────────────────────────
-    completed = len(groups) - len(pending)
-    pct = completed / len(groups) if len(groups) else 1.0
-    st.progress(pct, text=f"{completed} of {len(groups)} groups cleared — {total_to_review} transactions remaining")
-
     st.markdown("---")
 
-    # ── Current group card ────────────────────────────────────────────────────
-    net_sign = "+" if group["total"] >= 0 else ""
-    col_info, col_sample = st.columns([1, 2])
+    # ── Two modes: Group view (default) and Individual view ──────────────────
+    mode = st.radio("View mode", ["Group by vendor", "All transactions"], horizontal=True, label_visibility="collapsed")
 
-    with col_info:
-        st.markdown(f"### {group['_norm']}")
-        st.markdown(f"""
-        | | |
-        |---|---|
-        | **Transactions** | {int(group['count'])} |
-        | **Total** | {net_sign}${group['total']:,.2f} |
-        | **Date range** | {group['date_min']} → {group['date_max']} |
-        | **Account(s)** | {group['account']} |
-        """)
+    if mode == "Group by vendor":
+        # Normalize description to group similar vendors
+        def _norm(d: str) -> str:
+            d = str(d).upper()
+            d = _re.sub(r"\d{2}/\d{2}(?:/\d{2,4})?", "", d)
+            d = _re.sub(r"#\w+|\b\d{4,}\b|POS\w*", "", d)
+            d = _re.sub(r"\s+", " ", d).strip()
+            return d[:50]
 
-    with col_sample:
-        st.caption("Sample transactions")
-        sample = review_df[review_df["_norm"] == group["_norm"]][
-            ["date", "description", "amount", "account_last4"]
-        ].head(5)
-        st.dataframe(sample.reset_index(drop=True), use_container_width=True, hide_index=True)
-
-    st.markdown("---")
-
-    # ── Assignment form ───────────────────────────────────────────────────────
-    col_cat, col_sub, col_apply = st.columns([1, 1, 1])
-
-    with col_cat:
-        chosen_cat = st.selectbox(
-            "Category",
-            CATEGORY_OPTIONS,
-            key=f"rq_cat_{group_row_idx}",
+        review_df["_norm"] = review_df["description"].apply(_norm)
+        groups = (
+            review_df.groupby("_norm")
+            .agg(
+                count=("amount", "count"),
+                total=("amount", "sum"),
+                abs_total=("amount", lambda x: x.abs().sum()),
+                date_min=("date", "min"),
+                date_max=("date", "max"),
+                sample_desc=("description", "first"),
+            )
+            .reset_index()
+            .sort_values("abs_total", ascending=False)
+            .reset_index(drop=True)
         )
 
-    with col_sub:
-        sub_options = SUBCATEGORY_OPTIONS.get(chosen_cat, [""])
-        chosen_sub = st.selectbox(
-            "Subcategory",
-            sub_options,
-            key=f"rq_sub_{group_row_idx}",
+        st.caption(f"{len(groups)} vendor groups — assign a category to each group to stamp all matching transactions at once.")
+
+        # Build editable group table using session state assignments
+        if "rq_assignments" not in st.session_state:
+            st.session_state.rq_assignments = {}  # norm_key -> {cat, sub}
+
+        # Render each group as a compact row with dropdowns
+        for i, row in groups.iterrows():
+            norm_key = row["_norm"]
+            prev = st.session_state.rq_assignments.get(norm_key, {})
+
+            with st.container():
+                c1, c2, c3, c4, c5 = st.columns([3, 1, 2, 2, 1])
+                with c1:
+                    st.markdown(f"**{row['sample_desc'][:60]}**")
+                    st.caption(f"{int(row['count'])} txn · ${row['abs_total']:,.0f} total · {row['date_min']} to {row['date_max']}")
+                with c2:
+                    sign = "+" if row["total"] >= 0 else ""
+                    color = "#68d391" if row["total"] >= 0 else "#fc8181"
+                    st.markdown(f"<span style='color:{color};font-weight:bold'>{sign}${row['total']:,.0f}</span>", unsafe_allow_html=True)
+                with c3:
+                    chosen_cat = st.selectbox(
+                        "Category", CAT_OPTIONS,
+                        index=CAT_OPTIONS.index(prev["cat"]) if prev.get("cat") in CAT_OPTIONS else 0,
+                        key=f"gc_{i}", label_visibility="collapsed"
+                    )
+                with c4:
+                    sub_opts = _cats.get(chosen_cat, [""])
+                    prev_sub = prev.get("sub", "")
+                    sub_idx = sub_opts.index(prev_sub) if prev_sub in sub_opts else 0
+                    chosen_sub = st.selectbox(
+                        "Subcategory", sub_opts,
+                        index=sub_idx,
+                        key=f"gs_{i}", label_visibility="collapsed"
+                    )
+                with c5:
+                    if st.button("✓", key=f"ga_{i}", help="Apply to all matching transactions"):
+                        mask = df["description"].apply(_norm) == norm_key
+                        df.loc[mask, "category"] = chosen_cat
+                        df.loc[mask, "subcategory"] = chosen_sub
+                        df.loc[mask, "confidence"] = 1.0
+                        save_transactions(df)
+                        st.toast(f"✅ {int(mask.sum())} transactions → {chosen_cat} / {chosen_sub}")
+                        st.rerun()
+            st.divider()
+
+        st.markdown("---")
+        col_a, col_b = st.columns(2)
+        with col_a:
+            if st.button("💾 Save All Assignments", type="primary", use_container_width=True):
+                count = 0
+                for i, row in groups.iterrows():
+                    cat = st.session_state.get(f"gc_{i}")
+                    sub = st.session_state.get(f"gs_{i}")
+                    if cat and cat != "UNKNOWN":
+                        norm_key = row["_norm"]
+                        mask = df["description"].apply(_norm) == norm_key
+                        df.loc[mask, "category"] = cat
+                        df.loc[mask, "subcategory"] = sub or ""
+                        df.loc[mask, "confidence"] = 1.0
+                        count += int(mask.sum())
+                save_transactions(df)
+                st.success(f"Saved {count} transactions!")
+                st.rerun()
+
+    else:
+        # ── Individual transaction view with editable table ───────────────────
+        st.caption(f"{total_remaining} uncategorized transactions — edit category/subcategory inline, then save.")
+
+        display = review_df[["date", "description", "amount", "account_last4", "category", "subcategory"]].copy()
+        display["amount"] = pd.to_numeric(display["amount"], errors="coerce")
+        display = display.sort_values("amount", key=abs, ascending=False).reset_index(drop=True)
+
+        edited = st.data_editor(
+            display,
+            column_config={
+                "amount":     st.column_config.NumberColumn("Amount", format="$%.2f"),
+                "category":   st.column_config.SelectboxColumn("Category", options=CAT_OPTIONS),
+                "subcategory": st.column_config.TextColumn("Subcategory"),
+                "date":       st.column_config.TextColumn("Date"),
+                "description": st.column_config.TextColumn("Description", width="large"),
+                "account_last4": st.column_config.TextColumn("Acct"),
+            },
+            use_container_width=True,
+            num_rows="fixed",
+            height=600,
         )
 
-    with col_apply:
-        apply_all = st.checkbox(
-            f"Apply to all {int(group['count'])} matching transactions",
-            value=True,
-            key=f"rq_all_{group_row_idx}",
-        )
-        apply_similar = st.checkbox(
-            "Also apply to similar descriptions (fuzzy)",
-            value=False,
-            key=f"rq_fuzzy_{group_row_idx}",
-        )
-
-    col_btn1, col_btn2, col_btn3, col_btn_spacer = st.columns([1, 1, 1, 3])
-
-    with col_btn1:
-        if st.button("✅ Assign & Next", type="primary", use_container_width=True):
-            norm_key = group["_norm"]
-
-            if apply_all:
-                mask = df["description"].apply(_normalize_desc) == norm_key
-            else:
-                # Only the single top transaction in this group
-                target_idx = review_df[review_df["_norm"] == norm_key].index[:1]
-                mask = df.index.isin(target_idx)
-
-            if apply_similar:
-                # Also match descriptions that start with the same first word
-                first_word = norm_key.split()[0] if norm_key.split() else norm_key
-                mask = mask | (df["description"].str.upper().str.startswith(first_word))
-
-            df.loc[mask, "category"] = chosen_cat
-            df.loc[mask, "subcategory"] = chosen_sub
-            df.loc[mask, "confidence"] = 1.0
-
+        if st.button("💾 Save Changes", type="primary", use_container_width=True):
+            orig_indices = review_df.sort_values("amount", key=lambda x: x.abs(), ascending=False).index.tolist()
+            for i, idx in enumerate(orig_indices):
+                if i < len(edited):
+                    df.at[idx, "category"] = edited.at[i, "category"]
+                    df.at[idx, "subcategory"] = edited.at[i, "subcategory"]
+                    df.at[idx, "confidence"] = 1.0
             save_transactions(df)
-            updated = int(mask.sum())
-            st.toast(f"Saved: {updated} transaction(s) → {chosen_cat} / {chosen_sub}", icon="✅")
-
-            # Advance to next
-            st.session_state.rq_idx = min(current_group_pos + 1, len(pending) - 1)
+            st.success("Saved!")
             st.rerun()
-
-    with col_btn2:
-        if st.button("⏭ Skip", use_container_width=True):
-            st.session_state.rq_skipped.add(group_row_idx)
-            st.rerun()
-
-    with col_btn3:
-        if st.button("⬅ Previous", use_container_width=True):
-            st.session_state.rq_idx = max(current_group_pos - 1, 0)
-            st.rerun()
-
-    st.markdown("---")
-
-    # ── All remaining groups as a mini-table for quick overview ──────────────
-    with st.expander("📋 All pending groups"):
-        pending_groups = groups.iloc[pending][["_norm", "count", "total", "abs_total", "date_min", "date_max"]].copy()
-        pending_groups.columns = ["Description Pattern", "Count", "Net Total", "Abs Total", "First Date", "Last Date"]
-        pending_groups["Net Total"] = pending_groups["Net Total"].apply(lambda x: f"${x:,.0f}")
-        pending_groups["Abs Total"] = pending_groups["Abs Total"].apply(lambda x: f"${x:,.0f}")
-        st.dataframe(pending_groups.reset_index(drop=True), use_container_width=True, hide_index=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
