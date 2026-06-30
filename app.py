@@ -130,16 +130,28 @@ with st.sidebar:
         st.success(f"Saved {len(uploaded_files)} file(s) to data/statements/")
 
     if st.button("⚡ Process All Statements", type="primary", use_container_width=True):
-        with st.spinner("Parsing statements..."):
-            df = parse_all_statements(STATEMENTS_DIR, PROCESSED_DIR)
+        PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
+        STATEMENTS_DIR.mkdir(parents=True, exist_ok=True)
+
+        # Parse uploaded files if any; otherwise load existing CSV
+        has_statements = any(STATEMENTS_DIR.iterdir()) if STATEMENTS_DIR.exists() else False
+        if has_statements:
+            with st.spinner("Parsing statements..."):
+                df = parse_all_statements(STATEMENTS_DIR, PROCESSED_DIR)
+        elif TRANSACTIONS_CSV.exists():
+            df = pd.read_csv(TRANSACTIONS_CSV)
+            st.info("No new files uploaded — using existing transaction data for categorization.")
+        else:
+            df = pd.DataFrame()
+
         if not df.empty:
             with st.spinner("Categorizing with AI..."):
                 df = categorize_transactions(df)
             save_transactions(df)
-            st.success(f"✅ Processed {len(df)} transactions!")
+            st.success(f"Processed {len(df)} transactions!")
             st.rerun()
         else:
-            st.warning("No transactions found. Add files to data/statements/")
+            st.warning("No transactions found. Upload statement files to begin.")
 
     st.markdown("---")
     df_global = load_transactions()
