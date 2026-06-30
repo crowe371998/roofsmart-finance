@@ -736,6 +736,7 @@ def parse_all_statements(statements_dir: Path, processed_dir: Path) -> pd.DataFr
 
     combined = combined.sort_values("date").reset_index(drop=True)
 
+    processed_dir.mkdir(parents=True, exist_ok=True)
     out_path = processed_dir / "all_transactions.csv"
     combined.to_csv(out_path, index=False)
     console.print(f"[green]Saved {len(combined)} transactions to {out_path}[/green]")
