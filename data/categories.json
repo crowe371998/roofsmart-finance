@@ -1,0 +1,73 @@
+{
+  "REVENUE": [
+    "Job Payment",
+    "Insurance Checks",
+    "Customer Financing",
+    "Credit Card Deposit",
+    "Supplements",
+    "Corporate Lead",
+    "Customer Payment"
+  ],
+  "COGS": [
+    "Supplies and Materials",
+    "Subcontractor Labor",
+    "Equipment Rental",
+    "Permits"
+  ],
+  "OVERHEAD": [
+    "Insurance Expenses",
+    "Software/Subscriptions",
+    "Utilities",
+    "Phone/Utilities",
+    "Office Rent",
+    "Storage/Rent",
+    "Office Supplies",
+    "Bank Fees/Interest",
+    "Business Meals",
+    "Travel",
+    "Tax Prep Fee"
+  ],
+  "PAYROLL": [
+    "Payroll",
+    "Owner Draw",
+    "Payroll Garnishment"
+  ],
+  "VEHICLES": [
+    "Fuel",
+    "Maintenance",
+    "Vehicle Payment",
+    "Registration",
+    "Tolls",
+    "Vehicle Rental"
+  ],
+  "MARKETING": [
+    "Marketing",
+    "Recruiting"
+  ],
+  "EQUIPMENT": [
+    "Tools",
+    "Safety Gear",
+    "Machinery",
+    "Drone Equipment",
+    "Fixed Asset - Vehicle",
+    "Fixed Asset - Equipment"
+  ],
+  "TAXES": [
+    "Sales Tax Paid",
+    "Tax Prep Fee"
+  ],
+  "TRANSFERS": [
+    "Owner Contribution",
+    "Owner Reimbursement",
+    "Owner Draw",
+    "Loan Proceeds",
+    "Loan From Partners",
+    "Loan Repayment to Partners",
+    "Credit Card Payment",
+    "Inter-Account Transfer",
+    "Cash Withdrawal"
+  ],
+  "UNKNOWN": [
+    "Needs Manual Review"
+  ]
+}

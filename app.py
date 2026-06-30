@@ -89,6 +89,29 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
+# ── Category config (persisted in repo, writable copy in /tmp) ───────────────
+_COMMITTED_CATS = _REPO_ROOT / "data" / "categories.json"
+_TMP_CATS = _TMP / "categories.json"
+
+def load_categories() -> dict:
+    """Load category/subcategory map. /tmp copy wins if newer."""
+    for path in (_TMP_CATS, _COMMITTED_CATS):
+        if path.exists():
+            try:
+                return json.loads(path.read_text(encoding="utf-8"))
+            except Exception:
+                continue
+    return {"UNKNOWN": ["Needs Manual Review"]}
+
+def save_categories(cats: dict):
+    """Save to /tmp (always) and back-commit to repo copy."""
+    _TMP.mkdir(parents=True, exist_ok=True)
+    _TMP_CATS.write_text(json.dumps(cats, indent=2), encoding="utf-8")
+    try:
+        _COMMITTED_CATS.write_text(json.dumps(cats, indent=2), encoding="utf-8")
+    except Exception:
+        pass  # read-only on cloud — /tmp copy is enough for this session
+
 # ── State ────────────────────────────────────────────────────────────────────
 def load_transactions() -> pd.DataFrame:
     """Load processed transactions from disk."""
@@ -127,6 +150,43 @@ with st.sidebar:
         if api_key_input:
             os.environ["ANTHROPIC_API_KEY"] = api_key_input
             st.success("API key set for this session")
+
+    st.markdown("---")
+
+    with st.expander("🗂 Manage Categories"):
+        cats = load_categories()
+
+        st.caption("Add a new subcategory to an existing category:")
+        col_a, col_b = st.columns(2)
+        with col_a:
+            new_cat = st.selectbox("Category", list(cats.keys()), key="mgr_cat")
+        with col_b:
+            new_sub = st.text_input("New subcategory name", key="mgr_sub", placeholder="e.g. Roof Coating")
+        if st.button("➕ Add Subcategory", key="mgr_add_sub"):
+            if new_sub.strip() and new_sub.strip() not in cats.get(new_cat, []):
+                cats.setdefault(new_cat, []).append(new_sub.strip())
+                save_categories(cats)
+                st.success(f"Added '{new_sub.strip()}' to {new_cat}")
+                st.rerun()
+            elif new_sub.strip():
+                st.warning("Subcategory already exists.")
+
+        st.markdown("---")
+        st.caption("Add a brand new top-level category:")
+        new_top = st.text_input("New category name", key="mgr_top", placeholder="e.g. ROOF MAXX")
+        if st.button("➕ Add Category", key="mgr_add_top"):
+            if new_top.strip().upper() not in cats:
+                cats[new_top.strip().upper()] = []
+                save_categories(cats)
+                st.success(f"Added category '{new_top.strip().upper()}'")
+                st.rerun()
+            else:
+                st.warning("Category already exists.")
+
+        st.markdown("---")
+        st.caption("Current categories:")
+        for cat_name, subs in cats.items():
+            st.markdown(f"**{cat_name}**: {', '.join(subs) if subs else '_none_'}")
 
     st.markdown("---")
 
@@ -363,9 +423,7 @@ elif page == "Transactions":
         column_config={
             "amount": st.column_config.NumberColumn("Amount", format="$%.2f"),
             "confidence": st.column_config.ProgressColumn("Confidence", min_value=0, max_value=1),
-            "category": st.column_config.SelectboxColumn("Category", options=list(
-                ["REVENUE", "COGS", "OVERHEAD", "PAYROLL", "VEHICLES", "MARKETING", "EQUIPMENT", "TAXES", "TRANSFERS", "UNKNOWN"]
-            )),
+            "category": st.column_config.SelectboxColumn("Category", options=list(load_categories().keys())),
         },
         use_container_width=True,
         num_rows="fixed",
@@ -406,23 +464,9 @@ elif "Review Queue" in page:
         st.info("No transactions loaded.")
         st.stop()
 
-    CATEGORY_OPTIONS = [
-        "REVENUE", "COGS", "OVERHEAD", "PAYROLL", "VEHICLES",
-        "MARKETING", "EQUIPMENT", "TAXES", "TRANSFERS", "UNKNOWN",
-    ]
-
-    SUBCATEGORY_OPTIONS = {
-        "REVENUE":    ["Job Payment", "Insurance Checks", "Customer Financing", "Credit Card Deposit", "Supplements", "Corporate Lead"],
-        "COGS":       ["Supplies and Materials", "Subcontractor Labor", "Equipment Rental", "Permits"],
-        "OVERHEAD":   ["Insurance Expenses", "Software/Subscriptions", "Utilities", "Phone/Utilities", "Office Rent", "Office Supplies", "Bank Fees/Interest"],
-        "PAYROLL":    ["Payroll", "Owner Draw"],
-        "VEHICLES":   ["Fuel", "Maintenance", "Vehicle Payment", "Registration"],
-        "MARKETING":  ["Marketing"],
-        "EQUIPMENT":  ["Tools", "Safety Gear", "Machinery", "Fixed Asset - Vehicle", "Fixed Asset - Equipment"],
-        "TAXES":      ["Sales Tax Paid"],
-        "TRANSFERS":  ["Owner Contribution", "Owner Reimbursement", "Owner Draw", "Loan Proceeds", "Credit Card Payment", "Loan From Partners"],
-        "UNKNOWN":    ["Needs Manual Review"],
-    }
+    _cats = load_categories()
+    CATEGORY_OPTIONS = list(_cats.keys())
+    SUBCATEGORY_OPTIONS = _cats
 
     def _normalize_desc(d: str) -> str:
         """Strip dates, ref numbers, trailing digits — keep vendor name core."""
