@@ -699,6 +699,18 @@ def parse_file(path: Path) -> pd.DataFrame:
 
 def parse_all_statements(statements_dir: Path, processed_dir: Path) -> pd.DataFrame:
     """Parse all statement files in a directory and return combined DataFrame."""
+    try:
+        processed_dir.mkdir(parents=True, exist_ok=True)
+    except OSError:
+        pass  # read-only filesystem on cloud — directory already exists from git
+
+    if not statements_dir.exists():
+        # No statements directory — load existing processed CSV if available
+        existing = processed_dir / "all_transactions.csv"
+        if existing.exists():
+            return pd.read_csv(existing)
+        return _empty_df()
+
     files = [
         f for f in statements_dir.iterdir()
         if f.is_file() and f.suffix.lower() in
