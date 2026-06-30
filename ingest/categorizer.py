@@ -39,65 +39,118 @@ CATEGORIES = {
 # Patterns are matched case-insensitively against the description.
 # Rules are evaluated top-to-bottom; first match wins.
 _RULES: list[tuple[str, str, str, float]] = [
-    # TRANSFERS — Loan From Partners (Zelle, wire, etc.)
-    (r"\bzelle\b|\bwire transfer\b|\bvenmo\b|\bsquare cash\b|\bcash app\b|\btransfer (to|from)\b", "TRANSFERS", "Loan From Partners", 0.85),
-    (r"\baccount transfer\b|\binternal transfer\b|\bfunds transfer\b", "TRANSFERS", "Loan From Partners", 0.90),
+    # -----------------------------------------------------------------------
+    # OWNER / SHAREHOLDER — must fire before TRANSFERS and REVENUE
+    # -----------------------------------------------------------------------
+    # Owner contributions (startup capital, vehicle funding, Hamilton expansion)
+    (r"\bowner contribution\b|\bchase contribution\b|\bshareholder contribution\b|\bdue to shareholder\b", "TRANSFERS", "Owner Contribution", 0.95),
+    # Owner reimbursements back to Chase (reduce shareholder loan balance)
+    (r"\bowner reimbursement\b|\bchase reimbursement\b|\breimburse chase\b|\bshareholder reimburs\b", "TRANSFERS", "Owner Reimbursement", 0.95),
+    # Partner draws / distributions (Chase + Seth — NOT payroll)
+    (r"\bowner draw\b|\bowner'?s draw\b|\bpartner draw\b|\bdistribution\b.*\bchase\b|\bdistribution\b.*\bseth\b|\bchase draw\b|\bseth draw\b", "TRANSFERS", "Owner Draw", 0.95),
 
-    # TAXES — Sales Tax Paid
+    # -----------------------------------------------------------------------
+    # TRANSFERS — internal moves that must never become income/expense
+    # -----------------------------------------------------------------------
+    # PNC Line of Credit proceeds (liability, not income)
+    (r"\bline of credit\b|\bloc\b.*\bdraw\b|\bloc\b.*\badvance\b|\bcredit line\b", "TRANSFERS", "Loan Proceeds", 0.92),
+    # Loan interest / LOC fee
+    (r"\bloc\b.*\binterest\b|\bline of credit\b.*\binterest\b|\bloc\b.*\bfee\b", "OVERHEAD", "Bank Fees/Interest", 0.88),
+    # Credit card payment (offsets liability — not an expense)
+    (r"\bcredit card payment\b|\bcc payment\b|\bcard payment\b|\bamex payment\b|\bpnc card payment\b", "TRANSFERS", "Credit Card Payment", 0.92),
+    # Inter-account transfers
+    (r"\bzelle\b|\bwire transfer\b|\baccount transfer\b|\binternal transfer\b|\bfunds transfer\b", "TRANSFERS", "Loan From Partners", 0.85),
+    (r"\bvenmo\b|\bsquare cash\b|\bcash app\b|\btransfer (to|from)\b", "TRANSFERS", "Loan From Partners", 0.80),
+
+    # -----------------------------------------------------------------------
+    # TAXES
+    # -----------------------------------------------------------------------
     (r"\birs\b|\binternal revenue\b|\bu\.s\. treasury\b|\bestimated tax\b", "TAXES", "Sales Tax Paid", 0.95),
-    (r"\bsales tax\b|\bstate tax\b|\bpayroll tax\b|\bdept of revenue\b|\bdepartment of revenue\b", "TAXES", "Sales Tax Paid", 0.90),
+    (r"\bsales tax\b|\bstate tax\b|\bpayroll tax\b|\bdept of revenue\b|\bdepartment of revenue\b|\bwv state tax\b", "TAXES", "Sales Tax Paid", 0.90),
 
-    # PAYROLL
+    # -----------------------------------------------------------------------
+    # PAYROLL (ADP, manual, cash payroll for Joe/Aaron)
+    # -----------------------------------------------------------------------
     (r"\badp\b|\bgusto\b|\bpaychex\b|\bpaylocity\b|\brippling\b", "PAYROLL", "Payroll", 0.95),
     (r"\bpayroll\b|\bdirect deposit\b.*\bemployee\b", "PAYROLL", "Payroll", 0.85),
-    (r"\bowner draw\b|\bowner's draw\b", "PAYROLL", "Owner Draw", 0.95),
 
+    # -----------------------------------------------------------------------
     # MARKETING
+    # -----------------------------------------------------------------------
     (r"\bgoogle ads\b|\bgoogle adwords\b|\bgoogle\s+llc\b", "MARKETING", "Marketing", 0.90),
     (r"\bfacebook\b|\bmeta platforms\b|\binstagram\b", "MARKETING", "Marketing", 0.90),
-    (r"\bgrey marketing\b|\bkrager'?s?\b", "MARKETING", "Marketing", 0.95),
+    (r"\bgrey marketing\b|\bkrager'?s?\b|\bcrager'?s?\b|\bpaper strateg\b|\bfanbasis\b|\bwsaz\b|\bnap\b\b", "MARKETING", "Marketing", 0.95),
     (r"\bhomeadvisor\b|\bangi\b|\bthumbtack\b|\byelp\b|\bhouzz\b|\bnetworx\b|\bleadgen\b|\blead gen\b", "MARKETING", "Marketing", 0.95),
     (r"\bdoor hanger\b|\byard sign\b|\bdirect mail\b|\bpostcard\b", "MARKETING", "Marketing", 0.85),
 
-    # VEHICLES — Fuel
+    # -----------------------------------------------------------------------
+    # VEHICLES
+    # -----------------------------------------------------------------------
     (r"\bshell\b|\bbp\b|\bexxon\b|\bmobil\b|\bchevron\b|\bsunoco\b|\bmarathon\b|\bcitgo\b|\bwawa\b|\bquiktrip\b|\bquick trip\b|\bcasey\b|\bpilot\b|\bflying j\b|\bta travel\b", "VEHICLES", "Fuel", 0.92),
     (r"\bwex\b|\bfleetcor\b|\bfuel card\b|\bcomdata\b", "VEHICLES", "Fuel", 0.95),
-    (r"\bautozone\b|\bo'reilly\b|\boreilly\b|\bnapa auto\b|\badvance auto\b|\bpep boys\b", "VEHICLES", "Maintenance", 0.90),
+    (r"\bautozone\b|\bo'?reilly\b|\bnapa auto\b|\bnapa\b|\badvance auto\b|\bpep boys\b", "VEHICLES", "Maintenance", 0.90),
     (r"\bcar wash\b|\bjiffy lube\b|\bquick lube\b|\boil change\b|\btire kingdom\b|\bdiscount tire\b|\bgoodyear\b|\bfirestone\b", "VEHICLES", "Maintenance", 0.90),
     (r"\bford motor\b|\bgm financial\b|\btoyota financial\b|\bhyundai finance\b|\bdodge\b.*\bpayment\b|\btruck payment\b|\bvehicle payment\b|\bauto loan\b", "VEHICLES", "Vehicle Payment", 0.90),
     (r"\bdmv\b|\bvehicle registration\b|\btag renewal\b", "VEHICLES", "Registration", 0.92),
+    # Truck purchases → Fixed Asset (capitalize)
+    (r"\btruck purchase\b|\bvehicle purchase\b|\bpurchase\b.*\btruck\b", "EQUIPMENT", "Fixed Asset - Vehicle", 0.88),
 
+    # -----------------------------------------------------------------------
     # COGS — Supplies and Materials
+    # -----------------------------------------------------------------------
     (r"\bhome depot\b|\bhomedepot\b", "COGS", "Supplies and Materials", 0.92),
     (r"\blowe'?s\b|\blowes\b", "COGS", "Supplies and Materials", 0.92),
-    (r"\b84 lumber\b|\babc supply\b|\bbuilders firstsource\b|\bfactory direct\b|\bfastenal\b", "COGS", "Supplies and Materials", 0.95),
+    (r"\babc supply\b|\b84 lumber\b|\bbuilders firstsource\b|\bfastenal\b|\bgrainger\b|\bferguson\b", "COGS", "Supplies and Materials", 0.95),
+    (r"\bharbor freight\b|\btractor supply\b|\bsherwin.williams\b|\bmesser\b|\bcentral hardware\b", "COGS", "Supplies and Materials", 0.92),
+    (r"\bsam'?s club\b|\bcostco\b|\bamazon\b", "COGS", "Supplies and Materials", 0.75),
     (r"\bmenards\b|\btrue value\b|\bace hardware\b|\bdo it best\b", "COGS", "Supplies and Materials", 0.88),
     (r"\bsupply house\b|\broofing supply\b|\bgaf\b|\bcertainte?ed\b|\bowens corning\b|\biko\b|\btamko\b", "COGS", "Supplies and Materials", 0.95),
     (r"\bshingle\b|\bunderlayment\b|\bflashing\b|\bice.water\b|\bdeck nail\b|\bcoil nail\b|\bdrip edge\b|\bsoffit\b|\bfascia\b", "COGS", "Supplies and Materials", 0.95),
     (r"\bgutter\b|\bdownspout\b|\bscreen guard\b|\bleaf guard\b", "COGS", "Supplies and Materials", 0.90),
-    (r"\bsubcontract\b|\bsub contract\b|\blabor only\b|\bcrew\b.*\bpay\b|\binstall crew\b", "COGS", "Subcontractor Labor", 0.85),
+    (r"\bsubcontract\b|\bsub contract\b|\blabor only\b|\bcrew\b.*\bpay\b|\binstall crew\b|\bethan roebuck\b", "COGS", "Subcontractor Labor", 0.85),
     (r"\bpermit\b|\binspection fee\b|\bbuilding dept\b|\bcounty permit\b", "COGS", "Permits", 0.90),
     (r"\bequipment rental\b|\bunited rentals\b|\bsunbelt rental\b|\brunpro\b|\bdumpster\b|\bwaste mgmt\b|\brepublic services\b", "COGS", "Equipment Rental", 0.90),
 
-    # EQUIPMENT (purchase, not rental)
+    # -----------------------------------------------------------------------
+    # EQUIPMENT (capitalize spray rigs, trailer, major tools)
+    # -----------------------------------------------------------------------
+    (r"\bspray rig\b|\btrailer\b.*\bpurchase\b|\bpurchase\b.*\btrailer\b", "EQUIPMENT", "Fixed Asset - Equipment", 0.90),
     (r"\bmilwaukee tool\b|\bdewalt\b|\bmakita\b|\bbosch\b|\bstanley\b|\bknaack\b", "EQUIPMENT", "Tools", 0.90),
     (r"\bsafety gear\b|\bharness\b|\bfall protect\b|\bppe\b|\bhard hat\b|\bsafety supply\b", "EQUIPMENT", "Safety Gear", 0.88),
     (r"\bgenerator\b|\bcompressor\b|\bnailer\b|\bsaw\b.*\bpurchase\b", "EQUIPMENT", "Machinery", 0.85),
 
-    # OVERHEAD — Insurance Expenses
+    # -----------------------------------------------------------------------
+    # OVERHEAD
+    # -----------------------------------------------------------------------
+    # Insurance Expenses
     (r"\bstate farm\b|\ballstate\b|\bcgi insurance\b|\bfarmers\b|\bgeico\b|\busaa\b|\bnationwide\b|\btravelers\b|\bliberty mutual\b|\bprogressive\b.*\bcommercial\b|\baig\b|\bchubb\b|\bhartford\b", "OVERHEAD", "Insurance Expenses", 0.92),
-    (r"\bgl insurance\b|\bworkers comp\b|\bw\.?c\.?\b.*\bpremium\b|\bbusiness insurance\b|\binsurance premium\b", "OVERHEAD", "Insurance Expenses", 0.90),
-    (r"\bquickbooks\b|\bintuit\b|\bservicetitan\b|\bjobber\b|\bgoogle workspace\b|\bmicrosoft 365\b|\boffice 365\b|\badobe\b|\bdropbox\b|\bslack\b|\bzoom\b", "OVERHEAD", "Software/Subscriptions", 0.95),
-    (r"\bcomcast\b|\bat&t\b|\bverizon\b|\bt-mobile\b|\bspectrum\b|\bcox comm\b|\bxfinity\b", "OVERHEAD", "Utilities", 0.88),
+    (r"\bgl insurance\b|\bworkers comp\b|\bw\.?c\.?\b.*\bpremium\b|\bbusiness insurance\b|\binsurance premium\b|\bdrone insurance\b|\bcommercial auto\b", "OVERHEAD", "Insurance Expenses", 0.90),
+    # Software / Subscriptions
+    (r"\bquickbooks\b|\bintuit\b|\bcompanycam\b|\bdispatch\b|\broof coach\b|\bgenesis\b|\btsheets\b|\bfinal orbit\b", "OVERHEAD", "Software/Subscriptions", 0.95),
+    (r"\bgoogle workspace\b|\bmicrosoft 365\b|\boffice 365\b|\badobe\b|\bdropbox\b|\bslack\b|\bzoom\b", "OVERHEAD", "Software/Subscriptions", 0.95),
+    # Phone / Utilities
+    (r"\bt-mobile\b|\bverizon\b|\bat&t\b|\bcomcast\b|\bspectrum\b|\bcox comm\b|\bxfinity\b", "OVERHEAD", "Phone/Utilities", 0.88),
     (r"\bduke energy\b|\bconsolidated edison\b|\belectric\b.*\bservice\b|\bgas service\b|\bwater service\b", "OVERHEAD", "Utilities", 0.85),
+    # Rent / Office
     (r"\boffice rent\b|\brent payment\b|\boffice lease\b|\bmonthly rent\b", "OVERHEAD", "Office Rent", 0.90),
     (r"\boffice depot\b|\bstaples\b|\buline\b", "OVERHEAD", "Office Supplies", 0.75),
+    # Bank fees
+    (r"\bbank fee\b|\bservice charge\b|\bmonthly fee\b|\bannual fee\b|\bnsf\b|\boverdraft\b", "OVERHEAD", "Bank Fees/Interest", 0.88),
 
-    # REVENUE — insurance claim payments and confirmed job payments only
+    # -----------------------------------------------------------------------
+    # REVENUE — only fire on confirmed signals; large unknowns go to UNKNOWN
+    # -----------------------------------------------------------------------
+    # Customer financing platforms
+    (r"\bimprovifi\b", "REVENUE", "Customer Financing", 0.95),
+    (r"\bwisetack\b", "REVENUE", "Customer Financing", 0.95),
+    (r"\bintuit\b.*\bdeposit\b|\bintuit\b.*\bpayment\b|\bsquare\b.*\bdeposit\b", "REVENUE", "Credit Card Deposit", 0.90),
+    # Insurance claim payments (inbound)
     (r"\bclaim payment\b|\binsurance check\b|\binsurance loss\b|\bclaim settlement\b", "REVENUE", "Insurance Checks", 0.90),
     (r"\bsupplement\b|\broe payment\b|\broof supplement\b", "REVENUE", "Supplements", 0.95),
-    (r"\bjob deposit\b|\bcontract deposit\b|\bdown payment\b.*\broof\b", "REVENUE", "Job Deposits", 0.88),
-    # NOTE: large inbound credits are NOT auto-assigned — they go to UNKNOWN for manual review
+    # Confirmed job payments
+    (r"\bjob deposit\b|\bcontract deposit\b|\bdown payment\b.*\broof\b|\broof maxx\b", "REVENUE", "Job Payment", 0.88),
+    # Lowe's IME / corporate leads
+    (r"\blowe'?s\b.*\bime\b|\bime\b.*\blowe'?s\b|\bcorporate lead\b", "REVENUE", "Corporate Lead", 0.90),
 ]
 
 
