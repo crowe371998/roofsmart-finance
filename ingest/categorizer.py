@@ -15,7 +15,10 @@ from rich.progress import track
 console = Console()
 logger = logging.getLogger(__name__)
 
-CACHE_PATH = Path("data/processed/categories_cache.json")
+# Use /tmp on cloud (read-only git checkout), local data/ otherwise
+_TMP_CACHE = Path("/tmp/roofsmart/processed/categories_cache.json")
+_LOCAL_CACHE = Path("data/processed/categories_cache.json")
+CACHE_PATH = _TMP_CACHE if Path("/mount/src").exists() else _LOCAL_CACHE
 
 CATEGORIES = {
     "REVENUE": ["Job Deposits", "Final Payments", "Insurance Checks", "Supplements"],
@@ -73,8 +76,11 @@ def _load_cache() -> dict[str, dict]:
 
 def _save_cache(cache: dict[str, dict]) -> None:
     """Save categorization cache to disk."""
-    CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
-    CACHE_PATH.write_text(json.dumps(cache, indent=2), encoding="utf-8")
+    try:
+        CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+        CACHE_PATH.write_text(json.dumps(cache, indent=2), encoding="utf-8")
+    except Exception as exc:
+        logger.warning("Could not save cache (non-fatal): %s", exc)
 
 
 def _make_cache_key(row: pd.Series) -> str:
