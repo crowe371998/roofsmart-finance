@@ -1,0 +1,6 @@
+﻿data/statements/
+data/processed/
+data/reports/
+__pycache__/
+*.pyc
+.env
