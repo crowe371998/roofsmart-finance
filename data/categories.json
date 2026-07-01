@@ -9,6 +9,7 @@
     "Customer Payment"
   ],
   "COGS": [
+    "Roof Maxx Product",
     "Supplies and Materials",
     "Subcontractor Labor",
     "Equipment Rental",
@@ -23,6 +24,7 @@
     "Storage/Rent",
     "Office Supplies",
     "Bank Fees/Interest",
+    "Payment Processing Fees",
     "Business Meals",
     "Travel",
     "Tax Prep Fee"
