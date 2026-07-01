@@ -8,7 +8,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-01-27,Online Transfer From 0000004188771525 ROOF SMART LLC,12961.48,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_January_2025.pdf,TRANSFERS,Inter-Account Transfer,0.95
 2025-01-27,9929 Debit Card Purchase Dollar-General #2871,-5.36,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_January_2025.pdf,COGS,Supplies and Materials,0.6
 2025-01-28,3349 Recurring Debit Card Intuit *Qbooks Online,-74.5,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_January_2025.pdf,OVERHEAD,Software/Subscriptions,0.92
-2025-01-31,Withdrawal,-300.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_January_2025.pdf,TRANSFERS,Cash Withdrawal,0.7
+2025-01-31,Withdrawal,-300.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_January_2025.pdf,PAYROLL,Payroll,0.85
 2025-02-04,9929 Debit Card Purchase Crager's Ink Solutions,-51.06,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_February_2025.pdf,MARKETING,Marketing,0.95
 2025-02-06,9929 Debit Card Purchase Amazon Mktpl*Z761L9E21,-671.99,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_February_2025.pdf,COGS,Supplies and Materials,0.7
 2025-02-10,3349 Debit Card Purchase Cgi Insurance Group Ll,-108.68,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_February_2025.pdf,OVERHEAD,Insurance Expenses,0.92
@@ -27,7 +27,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-02-24,9929 Debit Card Purchase Sq *Briggs Lawrence Co,-4.5,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_February_2025.pdf,OVERHEAD,Office Supplies,0.65
 2025-02-24,POS Purchase O'Reilly 4418 Flatwoods Ky POS02680202 4808712,-75.54,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_February_2025.pdf,VEHICLES,Maintenance,0.9
 2025-02-24,POS Purchase Super Quik Raceland Ky POS99999999 4808713,-20.11,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_February_2025.pdf,VEHICLES,Fuel,0.92
-2025-02-24,ATM Withdrawal 110 S 4TH St Ironton Oh PNCPJ6612 4808711,-75.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_February_2025.pdf,TRANSFERS,Cash Withdrawal,0.7
+2025-02-24,ATM Withdrawal 110 S 4TH St Ironton Oh PNCPJ6612 4808711,-75.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_February_2025.pdf,PAYROLL,Payroll,0.85
 2025-02-27,Deposit,2327.32,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_February_2025.pdf,REVENUE,Customer Payment,0.65
 2025-02-27,9929 Debit Card Purchase Central Hardware & Fur,-213.38,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_February_2025.pdf,COGS,Supplies and Materials,0.92
 2025-02-27,POS Purchase Speedway 45628 Ironton Oh POS628DEX08 1419034,-40.11,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_February_2025.pdf,VEHICLES,Fuel,0.95
@@ -114,7 +114,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-04-02,N0402 3349 Payment Tmobile Au Bellevue Wa POS002 1445252,-80.61,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2025.pdf,OVERHEAD,Phone/Utilities,0.92
 2025-04-03,Deposit,1400.0,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2025.pdf,REVENUE,Customer Payment,0.65
 2025-04-03,Corporate ACH Payout Wisetack-Usbank Wt928aa614,2883.0,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2025.pdf,REVENUE,Customer Financing,0.95
-2025-04-04,Withdrawal,-170.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2025.pdf,TRANSFERS,Cash Withdrawal,0.7
+2025-04-04,Withdrawal,-170.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2025.pdf,PAYROLL,Payroll,0.85
 2025-04-04,BLS*Roof Maxx            800-7663269  OH,-2056.04,credit,0.0,,,CreditCardActivityExport (4).csv,COGS,Roof Maxx Product,0.95
 2025-04-04,AMAZON MKTPL*QV5SA5XN3,-294.93,credit,0.0,,,CreditCardActivityExport (4).csv,COGS,Supplies and Materials,0.7
 2025-04-04,CENTRAL HARDWARE & FURNIT,-161.81,credit,0.0,,,CreditCardActivityExport (4).csv,COGS,Supplies and Materials,0.92
@@ -161,7 +161,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-04-12,BUREAU OF WORKERS COMP BWC.OHIO.GOV OH,-1429.0,debit,0.0,3453,Credit Card,PNC_Cash_Rewards®_Visa_Signature®_Business_x3453_April_2025.pdf,OVERHEAD,Insurance Expenses,0.9
 2025-04-12,BUREAU OF WORKERS COMP BWC.OHIO.GOV OH,-975.0,debit,0.0,3453,Credit Card,PNC_Cash_Rewards®_Visa_Signature®_Business_x3453_April_2025.pdf,OVERHEAD,Insurance Expenses,0.9
 2025-04-12,MARATHON 180695 IRONTON OH,-25.37,debit,0.0,3453,Credit Card,PNC_Cash_Rewards®_Visa_Signature®_Business_x3453_April_2025.pdf,VEHICLES,Fuel,0.92
-2025-04-14,Withdrawal,-400.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2025.pdf,TRANSFERS,Cash Withdrawal,0.7
+2025-04-14,Withdrawal,-400.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2025.pdf,PAYROLL,Payroll,0.85
 2025-04-14,SUPER QUIK  10,-11.47,credit,0.0,,,CreditCardActivityExport (4).csv,VEHICLES,Fuel,0.92
 2025-04-14,SUPER QUIK  10,-47.2,credit,0.0,,,CreditCardActivityExport (4).csv,VEHICLES,Fuel,0.92
 2025-04-14,SUPER QUIK 10 WEST PORTSMOU OH,-47.2,debit,0.0,3453,Credit Card,PNC_Cash_Rewards®_Visa_Signature®_Business_x3453_April_2025.pdf,VEHICLES,Fuel,0.92
@@ -249,9 +249,9 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-04-28,9929 Debit Card Purchase Tst*Sonora Mexican Gri,-62.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2025.pdf,OVERHEAD,Business Meals,0.6
 2025-04-28,POS Purchase Lowe's #11 Ashland Ky POS001 5037573,-103.1,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2025.pdf,COGS,Supplies and Materials,0.92
 2025-04-28,POS Purchase Speedway 45628 Ironton Oh POS287POS01 5037575,-5.9,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2025.pdf,VEHICLES,Fuel,0.95
-2025-04-28,ATM Withdrawal 110 S 4TH St Ironton Oh PNCPJ6612 5037574,-200.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2025.pdf,TRANSFERS,Cash Withdrawal,0.7
+2025-04-28,ATM Withdrawal 110 S 4TH St Ironton Oh PNCPJ6612 5037574,-200.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2025.pdf,PAYROLL,Payroll,0.85
 2025-04-28,3349 Recurring Debit Card Intuit *Qbooks Online,-74.84,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2025.pdf,OVERHEAD,Software/Subscriptions,0.92
-2025-04-28,Withdrawal,-1778.5,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2025.pdf,TRANSFERS,Cash Withdrawal,0.7
+2025-04-28,Withdrawal,-1778.5,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2025.pdf,PAYROLL,Payroll,0.85
 2025-04-28,BRANCH PAYMENT*THANK YOU WILMINGTON   DE,173.91,debit,0.0,,,CreditCardActivityExport (4).csv,TRANSFERS,Loan From Partners,0.8
 2025-04-28,BRANCH PAYMENT*THANK YOU WILMINGTON   DE,1604.59,debit,0.0,,,CreditCardActivityExport (4).csv,TRANSFERS,Loan From Partners,0.8
 2025-04-29,3349 Debit Card Purchase Shell Oil 57442272001,-63.23,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2025.pdf,VEHICLES,Fuel,0.92
@@ -394,7 +394,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-06-06,9929 Debit Card Purchase Woodford Oil,-75.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_June_2025.pdf,VEHICLES,Fuel,0.92
 2025-06-06,POS Purchase Marathon 18069 Ironton Oh POS13579601 1717875,-11.42,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_June_2025.pdf,VEHICLES,Fuel,0.92
 2025-06-06,POS Purchase Marathon 18069 Ironton Oh POS13579601 1717874,-54.15,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_June_2025.pdf,VEHICLES,Fuel,0.92
-2025-06-06,ATM Withdrawal 110 S 4TH St Ironton Oh PNCPJ6612 2837072,-100.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_June_2025.pdf,TRANSFERS,Cash Withdrawal,0.7
+2025-06-06,ATM Withdrawal 110 S 4TH St Ironton Oh PNCPJ6612 2837072,-100.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_June_2025.pdf,PAYROLL,Payroll,0.85
 2025-06-09,9929 Debit Card Purchase Wendy's 0504 Ashland,-9.82,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_June_2025.pdf,OVERHEAD,Business Meals,0.6
 2025-06-09,9929 Debit Card Purchase Hardees 1503809,-26.46,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_June_2025.pdf,OVERHEAD,Business Meals,0.6
 2025-06-09,POS Purchase One Stop #532 Milton WV POS13380801 4978663,-55.81,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_June_2025.pdf,VEHICLES,Fuel,0.8
@@ -417,7 +417,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-06-13,9929 Debit Card Purchase Tst*Hillbilly Hot Dogs,-30.26,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_June_2025.pdf,OVERHEAD,Business Meals,0.6
 2025-06-13,POS Purchase Speedway 45548 Coal Grove Oh POS99999999 1734259,-50.42,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_June_2025.pdf,VEHICLES,Fuel,0.95
 2025-06-13,Counter Check Fee PK57396,-1.5,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_June_2025.pdf,OVERHEAD,Bank Fees/Interest,0.85
-2025-06-13,Withdrawal,-900.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_June_2025.pdf,TRANSFERS,Cash Withdrawal,0.7
+2025-06-13,Withdrawal,-900.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_June_2025.pdf,PAYROLL,Payroll,0.85
 2025-06-14,SPEEDWAY 45628,-63.3,credit,0.0,,,CreditCardActivityExport (4).csv,VEHICLES,Fuel,0.95
 2025-06-14,SPEEDWAY 45628 IRONTON OH,-63.3,debit,0.0,3453,Credit Card,PNC_Cash_Rewards®_Visa_Signature®_Business_x3453_June_2025.pdf,VEHICLES,Fuel,0.95
 2025-06-15,TST* 006 CAP CITY - GAHAN,-78.75,credit,0.0,,,CreditCardActivityExport (4).csv,OVERHEAD,Business Meals,0.6
@@ -452,7 +452,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-06-20,POS Purchase Go Mart #55 Milton WV POS02264201 3404185,-55.6,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_June_2025.pdf,VEHICLES,Fuel,0.92
 2025-06-20,POS Purchase Marathon 18068 Ironton Oh POS13579301 3404186,-5.38,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_June_2025.pdf,VEHICLES,Fuel,0.92
 2025-06-20,Online Transfer To 0000004121731908 TIER ZEROWE 00082457,-25000.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_June_2025.pdf,TRANSFERS,Loan Repayment to Partners,0.98
-2025-06-20,Withdrawal,-700.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_June_2025.pdf,TRANSFERS,Cash Withdrawal,0.7
+2025-06-20,Withdrawal,-700.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_June_2025.pdf,PAYROLL,Payroll,0.85
 2025-06-20,RICH OIL 03966 BARBAURSVI,-61.85,credit,0.0,,,CreditCardActivityExport (4).csv,VEHICLES,Fuel,0.92
 2025-06-20,N2CO  N2CO.COM           N2CO.COM     TX,-200.0,credit,0.0,,,CreditCardActivityExport (4).csv,OVERHEAD,Software/Subscriptions,0.92
 2025-06-20,SHELL OIL 57442272001,-12.94,credit,0.0,,,CreditCardActivityExport (4).csv,VEHICLES,Fuel,0.92
@@ -520,7 +520,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-06-30,POS Purchase Marathon 18069 Ironton Oh POS13579601 5021887,-5.36,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_June_2025.pdf,VEHICLES,Fuel,0.92
 2025-06-30,POS Purchase Marathon 18069 Ironton Oh POS13579601 5021889,-8.35,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_June_2025.pdf,VEHICLES,Fuel,0.92
 2025-06-30,3349 Recurring Debit Card Intuit *Tsheets,-94.28,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_June_2025.pdf,OVERHEAD,Software/Subscriptions,0.92
-2025-06-30,ATM Withdrawal 110 S 4TH St Ironton Oh PNCPJ6612 5021888,-20.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_June_2025.pdf,TRANSFERS,Cash Withdrawal,0.7
+2025-06-30,ATM Withdrawal 110 S 4TH St Ironton Oh PNCPJ6612 5021888,-20.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_June_2025.pdf,PAYROLL,Payroll,0.85
 2025-06-30,3349 Recurring Debit Card Sendjim.Io Sendjim.I,-78.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_June_2025.pdf,MARKETING,Marketing,0.95
 2025-07-01,9929 Debit Card Purchase Marathon Petro180943,-54.79,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_July_2025.pdf,VEHICLES,Fuel,0.92
 2025-07-02,OHIO SALES RETURN PMColumbus            OH,-944.79,credit,0.0,2009,,AMEX STATEMENT-JULY 2025.xlsx,TAXES,Sales Tax Paid,0.9
@@ -532,7 +532,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-07-03,POS Purchase Facebk *G8Bces www.facebook De POS00137739 1821755,-200.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_July_2025.pdf,MARKETING,Marketing,0.95
 2025-07-03,POS Purchase Marathon 18068 Ironton Oh POS13579301 1827215,-58.31,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_July_2025.pdf,VEHICLES,Fuel,0.92
 2025-07-03,N0702 3349 Payment Tmobile Au Bellevue Wa POS002 1821754,-116.25,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_July_2025.pdf,OVERHEAD,Phone/Utilities,0.92
-2025-07-03,Withdrawal,-2335.28,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_July_2025.pdf,TRANSFERS,Cash Withdrawal,0.7
+2025-07-03,Withdrawal,-2335.28,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_July_2025.pdf,PAYROLL,Payroll,0.85
 2025-07-03,BRANCH PAYMENT*THANK YOU WILMINGTON   DE,1435.28,debit,0.0,,,CreditCardActivityExport (4).csv,TRANSFERS,Loan From Partners,0.8
 2025-07-07,Corporate ACH Deposit,100.17,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_July_2025.pdf,REVENUE,Customer Payment,0.7
 2025-07-07,POS Purchase Facebk *9Cabqr www.facebook De POS00137739 6573285,-200.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_July_2025.pdf,MARKETING,Marketing,0.95
@@ -560,7 +560,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-07-11,FACEBK *EXWH8TC932       650-5434800  CA,-200.0,credit,0.0,,,CreditCardActivityExport (4).csv,MARKETING,Marketing,0.95
 2025-07-11,FACEBK *EXWH8TC932 650-5434800 CA,-200.0,debit,0.0,3453,Credit Card,PNC_Cash_Rewards®_Visa_Signature®_Business_x3453_July_2025.pdf,MARKETING,Marketing,0.95
 2025-07-14,Deposit,2500.01,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_July_2025.pdf,REVENUE,Customer Payment,0.65
-2025-07-14,Withdrawal,-500.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_July_2025.pdf,TRANSFERS,Cash Withdrawal,0.7
+2025-07-14,Withdrawal,-500.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_July_2025.pdf,PAYROLL,Payroll,0.85
 2025-07-14,MARATHON 180687,-38.94,credit,0.0,,,CreditCardActivityExport (4).csv,VEHICLES,Fuel,0.92
 2025-07-14,MARATHON 180687 IRONTON OH,-38.94,debit,0.0,3453,Credit Card,PNC_Cash_Rewards®_Visa_Signature®_Business_x3453_July_2025.pdf,VEHICLES,Fuel,0.92
 2025-07-15,WWW.ROOFCOACH.NET   BRADENTON           FL,-400.0,credit,0.0,2009,,AMEX STATEMENT-JULY 2025.xlsx,OVERHEAD,Software/Subscriptions,0.95
@@ -578,7 +578,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-07-17,MARATHON 180844 HUNTINGTON WV,-9.98,debit,0.0,3453,Credit Card,PNC_Cash_Rewards®_Visa_Signature®_Business_x3453_August_2025.pdf,VEHICLES,Fuel,0.92
 2025-07-18,BLS*ROOF MAXX       WESTERVILLE         OH,-2189.46,credit,0.0,2009,,AMEX STATEMENT-JULY 2025.xlsx,COGS,Roof Maxx Product,0.95
 2025-07-18,Deposit,6307.75,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_July_2025.pdf,REVENUE,Customer Payment,0.65
-2025-07-18,Withdrawal,-100.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_July_2025.pdf,TRANSFERS,Cash Withdrawal,0.7
+2025-07-18,Withdrawal,-100.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_July_2025.pdf,PAYROLL,Payroll,0.85
 2025-07-18,LOWES #00455*,-20.36,credit,0.0,,,CreditCardActivityExport (4).csv,COGS,Supplies and Materials,0.92
 2025-07-18,MARATHON 275297,-57.16,credit,0.0,,,CreditCardActivityExport (4).csv,VEHICLES,Fuel,0.92
 2025-07-18,MARATHON 275297 GREENUP KY,-57.16,debit,0.0,3453,Credit Card,PNC_Cash_Rewards®_Visa_Signature®_Business_x3453_August_2025.pdf,VEHICLES,Fuel,0.92
@@ -628,7 +628,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-08-01,Deposit,5072.0,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_August_2025.pdf,REVENUE,Customer Payment,0.65
 2025-08-01,9929 Debit Card Purchase Amazon Mktpl*N98Gp1Hw1,-24.88,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_August_2025.pdf,COGS,Supplies and Materials,0.7
 2025-08-01,N0801 3349 Payment Facebk *66Tyjt POS00137721 1791634,-200.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_August_2025.pdf,MARKETING,Marketing,0.95
-2025-08-01,Withdrawal,-1600.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_August_2025.pdf,TRANSFERS,Cash Withdrawal,0.7
+2025-08-01,Withdrawal,-1600.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_August_2025.pdf,PAYROLL,Payroll,0.85
 2025-08-02,CLARKS PNS 60 000001COAL GROVE          OH,-5.0,credit,0.0,1027,,AMEX STAEMENT-AUGUST 2025.xlsx,VEHICLES,Fuel,0.92
 2025-08-04,OHIO SALES RETURN PMColumbus            OH,-1761.05,credit,0.0,2009,,AMEX STAEMENT-AUGUST 2025.xlsx,TAXES,Sales Tax Paid,0.9
 2025-08-04,OPC TAX SERVICE FEE2ELKHORN             NE,-46.67,credit,0.0,2009,,AMEX STAEMENT-AUGUST 2025.xlsx,TAXES,Tax Prep Fee,0.9
@@ -680,7 +680,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-08-15,WWW.ROOFCOACH.NET   BRADENTON           FL,-400.0,credit,0.0,2009,,AMEX STAEMENT-AUGUST 2025.xlsx,OVERHEAD,Software/Subscriptions,0.95
 2025-08-15,Deposit,7577.7,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_August_2025.pdf,REVENUE,Customer Payment,0.65
 2025-08-15,Corporate ACH Svc Staxpmtsmerchant 19274300,15.0,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_August_2025.pdf,REVENUE,Credit Card Deposit,0.92
-2025-08-15,Withdrawal,-1200.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_August_2025.pdf,TRANSFERS,Cash Withdrawal,0.7
+2025-08-15,Withdrawal,-1200.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_August_2025.pdf,PAYROLL,Payroll,0.85
 2025-08-15,KROGER #3796,-61.27,credit,0.0,,,CreditCardActivityExport (4).csv,VEHICLES,Fuel,0.72
 2025-08-15,KROGER #3796,-2.49,credit,0.0,,,CreditCardActivityExport (4).csv,VEHICLES,Fuel,0.72
 2025-08-15,KROGER #3796 ASHLAND KY,-2.49,debit,0.0,3453,Credit Card,PNC_Cash_Rewards®_Visa_Signature®_Business_x3453_August_2025.pdf,VEHICLES,Fuel,0.72
@@ -780,7 +780,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-09-10,SPEEDWAY            1-800-643-1949      OH,-45.7,credit,0.0,1019,,AMEX STATEMENT-SEPTEMBER 2025.xlsx,VEHICLES,Fuel,0.95
 2025-09-10,Deposit,5550.0,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_September_2025.pdf,REVENUE,Customer Payment,0.65
 2025-09-10,Corporate ACH ACH Pmt Amex Epayment W7820,-36850.24,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_September_2025.pdf,TRANSFERS,Credit Card Payment,0.97
-2025-09-10,Withdrawal,-1400.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_September_2025.pdf,TRANSFERS,Cash Withdrawal,0.7
+2025-09-10,Withdrawal,-1400.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_September_2025.pdf,PAYROLL,Payroll,0.85
 2025-09-10,Online Credit Card Pmt 09/10 XXXX3453 O9670030071453453253,-2168.37,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_September_2025.pdf,TRANSFERS,Credit Card Payment,0.97
 2025-09-10,FACEBK *M4Y27YQ932       650-5434800  CA,-200.0,credit,0.0,,,CreditCardActivityExport (4).csv,MARKETING,Marketing,0.95
 2025-09-10,ONLINE CREDIT CARD PMT 09 10 XXXX3453,2168.37,debit,0.0,,,CreditCardActivityExport (4).csv,TRANSFERS,Credit Card Payment,0.97
@@ -883,7 +883,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-10-02,PwP    AMEX Fine HotAmexTravel.com      IL,-841.86,credit,0.0,2009,,AMEX STATEMENT-OCTOBER 2025.xlsx,OVERHEAD,Travel,0.8
 2025-10-02,Deposit,13778.89,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_October_2025.pdf,REVENUE,Customer Payment,0.65
 2025-10-02,N1002 3349 Payment Tmobile Au Bellevue Wa POS002 1570705,-116.25,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_October_2025.pdf,OVERHEAD,Phone/Utilities,0.92
-2025-10-02,Withdrawal,-1750.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_October_2025.pdf,TRANSFERS,Cash Withdrawal,0.7
+2025-10-02,Withdrawal,-1750.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_October_2025.pdf,PAYROLL,Payroll,0.85
 2025-10-03,CVS PHARMACY        MONTGOMERY          WV,-3.28,credit,0.0,1027,,AMEX STATEMENT-OCTOBER 2025.xlsx,OVERHEAD,Office Supplies,0.65
 2025-10-03,MARATHON 269472 0000BELLE               WV,-75.38,credit,0.0,1027,,AMEX STATEMENT-OCTOBER 2025.xlsx,VEHICLES,Fuel,0.92
 2025-10-03,Corporate ACH Deposit,9543.95,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_October_2025.pdf,REVENUE,Customer Payment,0.7
@@ -1059,7 +1059,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-11-16,MARATHON 180695     IRONTON             OH,-37.68,credit,0.0,1027,,AMEX STATEMENT-NOVEMBER 2025.xlsx,VEHICLES,Fuel,0.92
 2025-11-17,KROGER              ASHLAND             KY,-57.71,credit,0.0,1027,,AMEX STATEMENT-NOVEMBER 2025.xlsx,VEHICLES,Fuel,0.72
 2025-11-17,Deposit,13820.51,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_November_2025.pdf,REVENUE,Customer Payment,0.65
-2025-11-17,Withdrawal,-2350.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_November_2025.pdf,TRANSFERS,Cash Withdrawal,0.7
+2025-11-17,Withdrawal,-2350.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_November_2025.pdf,PAYROLL,Payroll,0.85
 2025-11-18,BLS*ROOF MAXX       WESTERVILLE         OH,-9408.48,credit,0.0,2009,,AMEX STATEMENT-NOVEMBER 2025.xlsx,COGS,Roof Maxx Product,0.95
 2025-11-18,Corporate ACH Payout Wisetack-Usbank Wt928aa614,3604.0,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_November_2025.pdf,REVENUE,Customer Financing,0.95
 2025-11-19,Deposit,2742.17,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_November_2025.pdf,REVENUE,Customer Payment,0.65
@@ -1084,7 +1084,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-11-24,Online Transfer To XXXXX1908 00068162,-30556.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_November_2025.pdf,TRANSFERS,Loan Repayment to Partners,0.98
 2025-11-25,FANBASIS.COM        WESTON              FL,-97.0,credit,0.0,2009,,AMEX STATEMENT-DECEMBER 2025.xlsx,MARKETING,Marketing,0.95
 2025-11-25,N2CO (N2CO.COM)     DALLAS              TX,-200.0,credit,0.0,2009,,AMEX STATEMENT-DECEMBER 2025.xlsx,OVERHEAD,Software/Subscriptions,0.92
-2025-11-26,Withdrawal,-30000.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_November_2025.pdf,TRANSFERS,Cash Withdrawal,0.7
+2025-11-26,Withdrawal,-30000.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_November_2025.pdf,TRANSFERS,Owner Draw,0.98
 2025-11-28,3349 Recurring Debit Card Intuit *Tsheets,-113.72,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_November_2025.pdf,OVERHEAD,Software/Subscriptions,0.92
 2025-11-29,POINTS FOR AMEX TRVL,227.56,debit,0.0,2009,,AMEX STATEMENT-DECEMBER 2025.xlsx,TRANSFERS,Inter-Account Transfer,0.8
 2025-11-29,Points for Amex Trvl,518.36,debit,0.0,2009,,AMEX STATEMENT-DECEMBER 2025.xlsx,TRANSFERS,Inter-Account Transfer,0.8
@@ -1292,7 +1292,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2026-03-30,COMPANYCAM          LINCOLN             NE,-160.92,credit,0.0,2009,,AMEX STATEMENT-APRIL 2026.xlsx,OVERHEAD,Software/Subscriptions,0.95
 2026-03-30,Deposit,9782.46,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_March_2026.pdf,REVENUE,Customer Payment,0.65
 2026-03-30,3349 Recurring Debit Card Intuit *Qbooks Online,-163.08,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_March_2026.pdf,OVERHEAD,Software/Subscriptions,0.92
-2026-03-30,Withdrawal,-200.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_March_2026.pdf,TRANSFERS,Cash Withdrawal,0.7
+2026-03-30,Withdrawal,-200.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_March_2026.pdf,PAYROLL,Payroll,0.85
 2026-04-01,BAMKO               LOS ANGELES         CA,-113.12,credit,0.0,1027,,AMEX STATEMENT-APRIL 2026.xlsx,MARKETING,Marketing,0.9
 2026-04-01,SPEEDWAY 45628 00004IRONTON             OH,-114.71,credit,0.0,1027,,AMEX STATEMENT-APRIL 2026.xlsx,VEHICLES,Fuel,0.95
 2026-04-01,POS Purchase Super Quik Raceland Ky POS48748003 1671310,-64.75,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2026.pdf,VEHICLES,Fuel,0.92
@@ -1340,7 +1340,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2026-04-16,BT*IPOSTAL*RENEWAL  MONTEBELLO          NY,-14.99,credit,0.0,2009,,AMEX STATEMENT-APRIL 2026.xlsx,OVERHEAD,Software/Subscriptions,0.82
 2026-04-17,IN *PAPER STRATEGIESWASHINGTON          NJ,-588.0,credit,0.0,1027,,AMEX STATEMENT-APRIL 2026.xlsx,MARKETING,Marketing,0.95
 2026-04-17,Corporate ACH Deposit,350.0,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2026.pdf,REVENUE,Customer Payment,0.7
-2026-04-17,ATM Withdrawal 110 S 4TH St Ironton Oh PNCPJ6612 1790916,-500.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2026.pdf,TRANSFERS,Cash Withdrawal,0.7
+2026-04-17,ATM Withdrawal 110 S 4TH St Ironton Oh PNCPJ6612 1790916,-500.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2026.pdf,PAYROLL,Payroll,0.85
 2026-04-17,Corporate ACH ADP Tax ADP Tax Zefik 040801A01,-1043.53,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2026.pdf,TAXES,Payroll Tax,0.9
 2026-04-17,Corporate ACH Tran Fee,-10.47,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2026.pdf,OVERHEAD,Bank Fees/Interest,0.92
 2026-04-18,MARATHON 180695     IRONTON             OH,-50.42,credit,0.0,1027,,AMEX STATEMENT-APRIL 2026.xlsx,VEHICLES,Fuel,0.92
@@ -1457,7 +1457,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2026-05-11,Deposit,7579.0,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_May_2026.pdf,REVENUE,Customer Payment,0.65
 2026-05-11,9929 Recurring Debit Card Companycam Companyca,-243.91,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_May_2026.pdf,OVERHEAD,Software/Subscriptions,0.95
 2026-05-11,Online Payment To 0071453453,-1280.96,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_May_2026.pdf,TRANSFERS,Inter-Account Transfer,0.95
-2026-05-11,Withdrawal,-300.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_May_2026.pdf,TRANSFERS,Cash Withdrawal,0.7
+2026-05-11,Withdrawal,-300.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_May_2026.pdf,PAYROLL,Payroll,0.85
 2026-05-11,MARATHON 180687,-140.0,credit,0.0,,,CreditCardActivityExport (4).csv,VEHICLES,Fuel,0.92
 2026-05-11,MARATHON 234526,-146.0,credit,0.0,,,CreditCardActivityExport (4).csv,VEHICLES,Fuel,0.92
 2026-05-11,MARATHON 234526 CINCINNATI OH,-146.0,debit,0.0,3453,Credit Card,PNC_Cash_Rewards®_Visa_Signature®_Business_x3453_May_2026.pdf,VEHICLES,Fuel,0.92
