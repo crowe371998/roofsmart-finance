@@ -98,9 +98,12 @@ _RULES: list[tuple[str, str, str, float]] = [
     (r"super qu[ia]k|super quick|super wash.*(?!car)|\bgo.?mart\b|\bgo mart\b", "VEHICLES", "Fuel", 0.92),
     (r"murphy express|circle k|thornton'?s|huck'?s|kash stop|lkb main|seaman 1st|corner market|generations quick|1st stop|locust grove.*gas|terry rd conv", "VEHICLES", "Fuel", 0.92),
     (r"rich oil|woodford oil|clarks (pns|fast lane)|clarks pns", "VEHICLES", "Fuel", 0.92),
-    (r"marathon petro|marathon\d|exxonmobil|7.eleven.*gas|kroger fuel|union 76|meijer express", "VEHICLES", "Fuel", 0.92),
+    (r"\bmarathon|marathon petro|exxonmobil|7.?eleven|kroger fuel|union 76|meijer express", "VEHICLES", "Fuel", 0.92),
+    (r"gillispies|one stop #\d|locust grove.*gas|one stop gas|s webster.*oh.*pos|ironton food|phillip'?s grocery", "VEHICLES", "Fuel", 0.80),
+    (r"united dairy farmers|udf\b", "VEHICLES", "Fuel", 0.85),
     (r"\bwex\b|\bfleetcor\b|\bfuel card\b|\bcomdata\b", "VEHICLES", "Fuel", 0.95),
-    (r"\bshell\b|\bexxon\b|\bmobil\b|\bchevron\b|\bsunoco\b|\bcitgo\b|\bwawa\b|\bpilot\b|\bflying j\b", "VEHICLES", "Fuel", 0.92),
+    (r"\bshell\b|\bexxon\b|\bmobil\b|\bchevron\b|\bsunoco\b|\bcitgo\b|\bwawa\b|\bpilot\b|\bflying j\b|\bbp#|\bbp \d", "VEHICLES", "Fuel", 0.92),
+    (r"\bkroger\b", "VEHICLES", "Fuel", 0.72),
     (r"wv parkways", "VEHICLES", "Tolls", 0.90),
     # Maintenance
     (r"vioc|valvoline|oil change|jiffy lube|quick lube", "VEHICLES", "Maintenance", 0.92),
@@ -110,7 +113,7 @@ _RULES: list[tuple[str, str, str, float]] = [
     (r"ford motor|gm financial|toyota financial|truck payment|vehicle payment|auto loan", "VEHICLES", "Vehicle Payment", 0.90),
     (r"\bdmv\b|vehicle registration|tag renewal", "VEHICLES", "Registration", 0.92),
     # Rentals
-    (r"enterprise.*rent|alamo rent|hertz\b", "VEHICLES", "Vehicle Rental", 0.88),
+    (r"enterprise.*rent|\benterprise\s+\d|\benterprise\s{2,}|alamo rent|hertz\b", "VEHICLES", "Vehicle Rental", 0.88),
 
     # -----------------------------------------------------------------------
     # COGS — Supplies and Materials
@@ -124,7 +127,9 @@ _RULES: list[tuple[str, str, str, float]] = [
     (r"shingle|underlayment|flashing|ice.water|deck nail|coil nail|drip edge|soffit|fascia", "COGS", "Supplies and Materials", 0.95),
     (r"gutter|downspout|screen guard|leaf guard", "COGS", "Supplies and Materials", 0.90),
     (r"cougar paws|sp \*cougar|sp cougar", "COGS", "Supplies and Materials", 0.90),
-    (r"subcontract|sub contract|labor only|install crew|ethan roebuck|zabos customs|in \*zabos", "COGS", "Subcontractor Labor", 0.85),
+    (r"subcontract|sub contract|labor only|install crew|ethan roebuck|zabos customs|in \*zabos|cams auto", "COGS", "Subcontractor Labor", 0.85),
+    # Amazon — roofing co buys tools/supplies; moderate confidence, flag for review
+    (r"amazon\.com|amazon mktpl|amazonmktpl|amzn\.com", "COGS", "Supplies and Materials", 0.70),
     (r"portsmouth engineering|scioto county public", "COGS", "Permits", 0.80),
     (r"\bpermit\b|inspection fee|building dept|county permit", "COGS", "Permits", 0.90),
     (r"sunbelt rental|united rentals|runpro|dumpster|waste mgmt|republic services", "COGS", "Equipment Rental", 0.90),
@@ -136,6 +141,7 @@ _RULES: list[tuple[str, str, str, float]] = [
     (r"milwaukee tool|dewalt|makita|bosch\b|knaack|micro center|micro electron", "EQUIPMENT", "Tools", 0.88),
     (r"best buy\b", "EQUIPMENT", "Tools", 0.72),
     (r"www\.dji\.com|dji\.com|drone reg|flylegitllc", "EQUIPMENT", "Drone Equipment", 0.88),
+    (r"academy sport|academy sports|bass pro|sportsman", "EQUIPMENT", "Safety Gear", 0.72),
     (r"generator|compressor|nailer", "EQUIPMENT", "Machinery", 0.85),
     (r"truck purchase|vehicle purchase|purchase.*truck", "EQUIPMENT", "Fixed Asset - Vehicle", 0.88),
 
@@ -145,6 +151,7 @@ _RULES: list[tuple[str, str, str, float]] = [
     # Insurance
     (r"state farm|allstate|cgi insurance|biberk|biberk insurance|compmanagement|ohio farm bureau|progressive.*(?:ins|commercial)|geico|usaa|nationwide|travelers|liberty mutual|aig\b|chubb|hartford", "OVERHEAD", "Insurance Expenses", 0.92),
     (r"gl insurance|workers comp|w\.?c\.?\b.*premium|business insurance|insurance premium|drone insurance|commercial auto", "OVERHEAD", "Insurance Expenses", 0.90),
+    (r"pmt\*oh bureau|oh bureau.*workers|bureau of workers|ohio bureau.*comp", "OVERHEAD", "Insurance Expenses", 0.90),
     # Software / subscriptions
     (r"quickbooks|payidw\.com|intuit\b", "OVERHEAD", "Software/Subscriptions", 0.92),
     (r"companycam|dispatch\b|roof coach|www\.roofcoach|roofcoach\.net|genesis\b|tsheets|final orbit", "OVERHEAD", "Software/Subscriptions", 0.95),
@@ -156,17 +163,39 @@ _RULES: list[tuple[str, str, str, float]] = [
     # Utilities
     (r"duke energy|consolidated edison|electric.*service|gas service|water service", "OVERHEAD", "Utilities", 0.85),
     # Storage / rent
-    (r"stone creek stor|ironton self stor|beechmont self stor|self stor|storage\b", "OVERHEAD", "Storage/Rent", 0.88),
+    (r"stone creek stor|ironton self stor|beechmont self sto|beechmont stor|self stor|storage\b", "OVERHEAD", "Storage/Rent", 0.88),
     (r"office rent|rent payment|office lease|monthly rent", "OVERHEAD", "Office Rent", 0.90),
     # Office supplies / shipping
     (r"office depot|officemax|staples\b|uline\b|ups store|usps\b|order for checks", "OVERHEAD", "Office Supplies", 0.82),
     # Bank fees
     (r"counter check fee|order for checks|membership fee|cr adj membership|service charge|nsf\b|overdraft|annual fee|tran fee|fee\b", "OVERHEAD", "Bank Fees/Interest", 0.85),
+    # Walmart — could be supplies/materials for crew
+    (r"\bwal.?mart\b|wm supercenter|\bsam'?s club\b|\bcostco\b", "COGS", "Supplies and Materials", 0.68),
+    # Labor license / contractor license
+    (r"labor.*licens|licens.*labor|contractor.*licens|licens.*contract", "OVERHEAD", "Software/Subscriptions", 0.75),
+    # Business association / chamber
+    (r"briggs lawrence|greater lawrenc|chamber of commerce|business assoc", "OVERHEAD", "Office Supplies", 0.65),
     (r"loc\b.*interest|line of credit.*interest|loc\b.*fee", "OVERHEAD", "Bank Fees/Interest", 0.88),
     # Business meals (crews, clients — low confidence, flag for review)
     (r"tst\*|tst \*|buffalo wild|wendy'?s|subway\b|panera|hardees|burger king|raising cane|longhorn steak|olive garden|penn station\b|chipotle|jersey mike|frisch|mellow mushroom|cattleman|roosters\b|condado taco|topgolf|sweetgreen", "OVERHEAD", "Business Meals", 0.60),
+    (r"blue agave|blueagave|archetype.*oh|cjs on the bay|gametime|bt\*gametime|hickies|guthries", "OVERHEAD", "Business Meals", 0.60),
+    (r"scioto ribber|skeetos pizza|china wok|pies.*pints|casablanca express|taqueria|toro loco|koi hibachi|charleys philly|tropical smoothie|marco island brew|levy.*osu|salt rock gala|metro beer|great amer bagel|sams bagels|roosters.*bar|shakery|rams dairy|asm global|smg\b|mountain health|tudor'?s|little caesar", "OVERHEAD", "Business Meals", 0.60),
+    (r"\bdunham'?s\b", "EQUIPMENT", "Safety Gear", 0.72),
+    (r"family dollar|dollar.?general|dollar tree", "COGS", "Supplies and Materials", 0.60),
+    (r"cvs pharmacy|cvs/pharmacy|walgreen|rite aid", "OVERHEAD", "Office Supplies", 0.65),
+    (r"riverside parking|parking serv|park.*serv|parkmobile", "OVERHEAD", "Travel", 0.78),
+    (r"make it yours", "MARKETING", "Marketing", 0.72),
     # Travel / hotel
-    (r"hampton inn|hilton\b|marriott|fontainebleau|jw marriott", "OVERHEAD", "Travel", 0.75),
+    (r"hampton inn|hilton\b|marriott|fontainebleau|jw marriott|aaa park", "OVERHEAD", "Travel", 0.75),
+    # AMEX travel bookings and point redemptions
+    (r"pwp\s+amex|pwp\s+american expr|amextravel|amex fine hot|amex.*travel|fhr redeem|platinum hotel credit", "OVERHEAD", "Travel", 0.80),
+    (r"points for amex trvl|points for statement credit|adj redist purchase bal|dr adj redist cadv|redist.*cadv|cadv.*redist", "TRANSFERS", "Inter-Account Transfer", 0.80),
+    # Provisional credit / dispute pending = bank holding disputed funds
+    (r"provisional credit.*dispute|irregular signature return|missing signature return", "TRANSFERS", "Inter-Account Transfer", 0.85),
+    # Chamber / business association
+    (r"greater lawrence|lawrence county.*chamber|chamber of commerce", "OVERHEAD", "Office Supplies", 0.70),
+    # Golf / entertainment (business meals category)
+    (r"sugarwood golf|glf\*|hibiscus golf|topgolf", "OVERHEAD", "Business Meals", 0.65),
 
     # -----------------------------------------------------------------------
     # REVENUE — confirmed inbound payment signals
@@ -232,8 +261,24 @@ def _rule_categorize(description: str, amount: float) -> tuple[str, str, float] 
     if re.search(r"mission path con", desc, re.IGNORECASE):
         return "COGS", "Subcontractor Labor", 0.85
 
-    # Corporate ACH: inflow = customer payment, outflow = unknown
-    if re.search(r"corporate ach (payments|purchase|sale)|corporate ach svc", desc, re.IGNORECASE):
+    # Corporate ACH / ACH Credit: handle known sub-patterns before generic fallback
+    if re.search(r"corporate ach|ach credit ach pmt", desc, re.IGNORECASE):
+        # AMEX bill payment buried in corporate ACH description
+        if re.search(r"amex epayment|epayment.*amex|eepayment", desc, re.IGNORECASE):
+            return "TRANSFERS", "Credit Card Payment", 0.97
+        # Payroll garnishment
+        if re.search(r"eepay.?garn|eepay/garn", desc, re.IGNORECASE):
+            return "PAYROLL", "Payroll Garnishment", 0.90
+        # WV / state tax payments
+        if re.search(r"wvtaxpay|ohsalestvl|ohsalesutx|wv tax|oh tax", desc, re.IGNORECASE):
+            return "TAXES", "Sales Tax Paid", 0.90
+        # ADP payroll tax
+        if re.search(r"adp tax|adp.*tax", desc, re.IGNORECASE):
+            return "TAXES", "Payroll Tax", 0.90
+        # Transaction/service fee
+        if re.search(r"tran fee|transaction fee|svc fee|service fee", desc, re.IGNORECASE):
+            return "OVERHEAD", "Bank Fees/Interest", 0.92
+        # Generic: inflow = customer payment, outflow = needs review
         if inflow:
             return "REVENUE", "Customer Payment", 0.70
         else:
