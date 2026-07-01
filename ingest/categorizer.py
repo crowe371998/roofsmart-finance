@@ -156,7 +156,10 @@ _RULES: list[tuple[str, str, str, float]] = [
     (r"quickbooks|payidw\.com|intuit\b", "OVERHEAD", "Software/Subscriptions", 0.92),
     (r"companycam|dispatch\b|roof coach|www\.roofcoach|roofcoach\.net|genesis\b|tsheets|final orbit", "OVERHEAD", "Software/Subscriptions", 0.95),
     (r"microsoft\*|microsoft 365|office 365|adobe\b|dropbox|slack\b|zoom\b|clickup|docusign|notarize|ideogram|runway standard|n2co\b", "OVERHEAD", "Software/Subscriptions", 0.92),
-    (r"namecheap|name.cheap|ipostal|connectedinvestors|prov inc|checkr\b|first advantage", "OVERHEAD", "Software/Subscriptions", 0.82),
+    (r"namecheap|name.cheap|ipostal|connectedinvestors|prov inc|checkr\b|first advantage|\blovable\b", "OVERHEAD", "Software/Subscriptions", 0.82),
+    (r"fyffe jones|cochran.*company|sq \*cochran", "OVERHEAD", "Accounting Fees", 0.92),
+    (r"b4wv|labor.*licens|licens.*labor|business licens|contractor licens", "OVERHEAD", "Business Licenses", 0.90),
+    (r"ohio univ.*emarket|ohio univ emarket", "OVERHEAD", "Office Rent", 0.88),
     # Phone
     (r"tmobile|t-mobile|tmobile\*auto|n\d{4} \d{4} payment tmobile", "OVERHEAD", "Phone/Utilities", 0.92),
     (r"verizon|at&t|comcast|spectrum|cox comm|xfinity|u\.s\. cellular", "OVERHEAD", "Phone/Utilities", 0.88),
