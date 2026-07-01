@@ -723,7 +723,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-08-22,Corporate ACH Wvtaxpaypb,-475.01,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_August_2025.pdf,TAXES,Sales Tax Paid,0.9
 2025-08-25,N2CO (N2CO.COM)     DALLAS              TX,-200.0,credit,0.0,2009,,AMEX STATEMENT-SEPTEMBER 2025.xlsx,OVERHEAD,Software/Subscriptions,0.92
 2025-08-25,Deposit,4942.08,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_August_2025.pdf,REVENUE,Customer Payment,0.65
-2025-08-25,9929 Debit Card Purchase Py *Ironton Self Stora,-105.31,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_August_2025.pdf,OVERHEAD,Storage/Rent,0.88
+2025-08-25,9929 Debit Card Purchase Py *Ironton Self Stora,-105.31,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_August_2025.pdf,VEHICLES,Fuel,0.75
 2025-08-25,FACEBK *FD3CMWC932       650-5434800  CA,-200.0,credit,0.0,,,CreditCardActivityExport (4).csv,MARKETING,Marketing,0.95
 2025-08-25,FACEBK *FD3CMWC932 650-5434800 CA,-200.0,debit,0.0,3453,Credit Card,PNC_Cash_Rewards®_Visa_Signature®_Business_x3453_September_2025.pdf,MARKETING,Marketing,0.95
 2025-08-26,MARATHON 180687 0000IRONTON             OH,-65.05,credit,0.0,1027,,AMEX STATEMENT-SEPTEMBER 2025.xlsx,VEHICLES,Fuel,0.92
@@ -834,7 +834,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-09-24,PROV INC.           801-733-4455        UT,-59.95,credit,0.0,2009,,AMEX STATEMENT-OCTOBER 2025.xlsx,OVERHEAD,Software/Subscriptions,0.82
 2025-09-24,PROV INC.           801-733-4455        UT,-106.36,credit,0.0,2009,,AMEX STATEMENT-OCTOBER 2025.xlsx,OVERHEAD,Software/Subscriptions,0.82
 2025-09-24,SPEEDWAY            1-800-643-1949      OH,-29.28,credit,0.0,1019,,AMEX STATEMENT-OCTOBER 2025.xlsx,VEHICLES,Fuel,0.95
-2025-09-24,9929 Debit Card Purchase Py *Ironton Self Stora,-105.31,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_September_2025.pdf,OVERHEAD,Storage/Rent,0.88
+2025-09-24,9929 Debit Card Purchase Py *Ironton Self Stora,-105.31,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_September_2025.pdf,VEHICLES,Fuel,0.75
 2025-09-24,Online Transfer To 0000004121731908 TIER ZEROWE 00033398,-30000.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_September_2025.pdf,TRANSFERS,Loan Repayment to Partners,0.98
 2025-09-24,FACEBK *Q424RXY932       650-5434800  DE,-200.0,credit,0.0,,,CreditCardActivityExport (4).csv,MARKETING,Marketing,0.95
 2025-09-24,SHEETZ 2740,-50.14,credit,0.0,,,CreditCardActivityExport (4).csv,VEHICLES,Fuel,0.95
@@ -970,7 +970,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-10-23,SUNOCO 0158557900   WHEELERSBURG        OH,-68.73,credit,0.0,1027,,AMEX STATEMENT-NOVEMBER 2025.xlsx,VEHICLES,Fuel,0.92
 2025-10-23,Deposit,450.0,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_October_2025.pdf,REVENUE,Customer Payment,0.65
 2025-10-23,Corporate ACH Wvtaxpaypb,-1079.22,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_October_2025.pdf,TAXES,Sales Tax Paid,0.9
-2025-10-24,9929 Debit Card Purchase Py *Ironton Self Stora,-105.31,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_October_2025.pdf,OVERHEAD,Storage/Rent,0.88
+2025-10-24,9929 Debit Card Purchase Py *Ironton Self Stora,-105.31,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_October_2025.pdf,VEHICLES,Fuel,0.75
 2025-10-24,9929 Debit Card Purchase Amazon Mktpl*Nu17V8Jj2,-17.14,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_October_2025.pdf,COGS,Supplies and Materials,0.7
 2025-10-24,9929 Debit Card Purchase Amazon Mktpl*Nu37H4Ji2,-66.48,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_October_2025.pdf,COGS,Supplies and Materials,0.7
 2025-10-24,FACEBK *FKSFS3D932       650-5434800  DE,-200.0,credit,0.0,,,CreditCardActivityExport (4).csv,MARKETING,Marketing,0.95
@@ -1080,7 +1080,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-11-24,OHIO SALES RETURN PMColumbus            OH,-1307.08,credit,0.0,2009,,AMEX STATEMENT-DECEMBER 2025.xlsx,TAXES,Sales Tax Paid,0.9
 2025-11-24,OPC TAX SERVICE FEE2ELKHORN             NE,-34.64,credit,0.0,2009,,AMEX STATEMENT-DECEMBER 2025.xlsx,TAXES,Tax Prep Fee,0.9
 2025-11-24,Deposit,5753.54,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_November_2025.pdf,REVENUE,Customer Payment,0.65
-2025-11-24,9929 Debit Card Purchase Py *Ironton Self Stora,-105.31,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_November_2025.pdf,OVERHEAD,Storage/Rent,0.88
+2025-11-24,9929 Debit Card Purchase Py *Ironton Self Stora,-105.31,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_November_2025.pdf,VEHICLES,Fuel,0.75
 2025-11-24,Online Transfer To XXXXX1908 00068162,-30556.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_November_2025.pdf,TRANSFERS,Loan Repayment to Partners,0.98
 2025-11-25,FANBASIS.COM        WESTON              FL,-97.0,credit,0.0,2009,,AMEX STATEMENT-DECEMBER 2025.xlsx,MARKETING,Marketing,0.95
 2025-11-25,N2CO (N2CO.COM)     DALLAS              TX,-200.0,credit,0.0,2009,,AMEX STATEMENT-DECEMBER 2025.xlsx,OVERHEAD,Software/Subscriptions,0.92
@@ -1145,7 +1145,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-12-21,WAVE - *SALTYS MEDIA LLC 386-5275066 FL,-310.5,debit,0.0,3453,Credit Card,PNC_Cash_Rewards®_Visa_Signature®_Business_x3453_January_2026.pdf,MARKETING,Marketing,0.95
 2025-12-23,Corporate ACH Wvtaxpaypb,-853.41,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_December_2025.pdf,TAXES,Sales Tax Paid,0.9
 2025-12-23,Corporate ACH Wvtaxpaypb,-54.32,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_December_2025.pdf,TAXES,Sales Tax Paid,0.9
-2025-12-24,9929 Debit Card Purchase Py *Ironton Self Stora,-105.31,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_December_2025.pdf,OVERHEAD,Storage/Rent,0.88
+2025-12-24,9929 Debit Card Purchase Py *Ironton Self Stora,-105.31,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_December_2025.pdf,VEHICLES,Fuel,0.75
 2025-12-25,N2CO (N2CO.COM)     DALLAS              TX,-200.0,credit,0.0,2009,,AMEX STATEMENT-JANUARY 2026.xlsx,OVERHEAD,Software/Subscriptions,0.92
 2025-12-26,MELLOW MUSHROOM #177NEW ALBANY          OH,-64.78,credit,0.0,2009,,AMEX STATEMENT-JANUARY 2026.xlsx,OVERHEAD,Business Meals,0.6
 2025-12-29,3349 Recurring Debit Card Intuit *Tsheets,-113.72,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_December_2025.pdf,OVERHEAD,Software/Subscriptions,0.92
@@ -1173,7 +1173,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2026-01-21,FACEBK *6YUK7BR932       650-5434800  DE,-112.72,credit,0.0,,,CreditCardActivityExport (4).csv,MARKETING,Marketing,0.95
 2026-01-21,FACEBK *6YUK7BR932 650-5434800 DE,-112.72,debit,0.0,3453,Credit Card,PNC_Cash_Rewards®_Visa_Signature®_Business_x3453_February_2026.pdf,MARKETING,Marketing,0.95
 2026-01-21,WAVE - *SALTYS MEDIA LLC 386-5275066 FL,-310.5,debit,0.0,3453,Credit Card,PNC_Cash_Rewards®_Visa_Signature®_Business_x3453_February_2026.pdf,MARKETING,Marketing,0.95
-2026-01-26,9929 Debit Card Purchase Py *Ironton Self Stora,-110.67,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_January_2026.pdf,OVERHEAD,Storage/Rent,0.88
+2026-01-26,9929 Debit Card Purchase Py *Ironton Self Stora,-110.67,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_January_2026.pdf,VEHICLES,Fuel,0.75
 2026-01-27,N2CO (N2CO.COM)     DALLAS              TX,-200.0,credit,0.0,2009,,AMEX STATEMENT-FEBRUARY 2026.xlsx,OVERHEAD,Software/Subscriptions,0.92
 2026-01-28,ADOBE Adobe Systems SAN JOSE            CA,-24.83,credit,0.0,2009,,AMEX STATEMENT-FEBRUARY 2026.xlsx,OVERHEAD,Software/Subscriptions,0.92
 2026-01-28,RUNWAY STANDARD PLANNEW YORK            NY,-15.0,credit,0.0,2009,,AMEX STATEMENT-FEBRUARY 2026.xlsx,OVERHEAD,Software/Subscriptions,0.92
@@ -1219,7 +1219,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2026-02-22,IN *ZABOS CUSTOMS LLC    614-7530230  OH,-2000.0,credit,0.0,,,CreditCardActivityExport (4).csv,COGS,Subcontractor Labor,0.85
 2026-02-22,IN *ZABOS CUSTOMS LLC 614-7530230 OH,-2000.0,debit,0.0,3453,Credit Card,PNC_Cash_Rewards®_Visa_Signature®_Business_x3453_March_2026.pdf,COGS,Subcontractor Labor,0.85
 2026-02-23,IN *STRUCTURE MARKETWHITESBORO          NY,-300.0,credit,0.0,2009,,AMEX STATEMENT-MARCH 2026.xlsx,MARKETING,Marketing,0.85
-2026-02-24,9929 Debit Card Purchase Py *Ironton Self Stora,-110.67,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_February_2026.pdf,OVERHEAD,Storage/Rent,0.88
+2026-02-24,9929 Debit Card Purchase Py *Ironton Self Stora,-110.67,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_February_2026.pdf,VEHICLES,Fuel,0.75
 2026-02-24,POS Purchase Shell Service Wheelersburg Oh POS15679101 1274654,-53.52,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_February_2026.pdf,VEHICLES,Fuel,0.92
 2026-02-25,N2CO (N2CO.COM)     DALLAS              TX,-200.0,credit,0.0,2009,,AMEX STATEMENT-MARCH 2026.xlsx,OVERHEAD,Software/Subscriptions,0.92
 2026-02-25,POS Purchase Shell Service Wheelersburg Oh POS15679101 1419359,-38.96,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_February_2026.pdf,VEHICLES,Fuel,0.92
@@ -1283,7 +1283,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2026-03-21,WAVE - *SALTYS MEDIA LLC 386-5275066 FL,-310.5,debit,0.0,3453,Credit Card,PNC_Cash_Rewards®_Visa_Signature®_Business_x3453_April_2026.pdf,MARKETING,Marketing,0.95
 2026-03-23,9929 Debit Card Purchase Marathon 189803,-9.98,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_March_2026.pdf,VEHICLES,Fuel,0.92
 2026-03-24,LOWES OF BURLINGTON SOUTH POINT         OH,-55.68,credit,0.0,1027,,AMEX STATEMENT-APRIL 2026.xlsx,COGS,Supplies and Materials,0.92
-2026-03-24,9929 Debit Card Purchase Py *Ironton Self Stora,-110.67,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_March_2026.pdf,OVERHEAD,Storage/Rent,0.88
+2026-03-24,9929 Debit Card Purchase Py *Ironton Self Stora,-110.67,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_March_2026.pdf,VEHICLES,Fuel,0.75
 2026-03-25,N2CO (N2CO.COM)     DALLAS              TX,-200.0,credit,0.0,2009,,AMEX STATEMENT-APRIL 2026.xlsx,OVERHEAD,Software/Subscriptions,0.92
 2026-03-27,ADOBE Adobe Systems SAN JOSE            CA,-26.99,credit,0.0,2009,,AMEX STATEMENT-APRIL 2026.xlsx,OVERHEAD,Software/Subscriptions,0.92
 2026-03-27,KROGER              ASHLAND             KY,-79.41,credit,0.0,1027,,AMEX STATEMENT-APRIL 2026.xlsx,VEHICLES,Fuel,0.72
@@ -1374,7 +1374,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2026-04-24,Corporate ACH ADP TaxADP Tax Zegt3 042401A01,-255.12,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_April_2026.pdf,TAXES,Payroll Tax,0.9
 2026-04-24,Deposit,10370.03,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2026.pdf,REVENUE,Customer Payment,0.65
 2026-04-24,Online Transfer From 7003047800056270,50000.0,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2026.pdf,TRANSFERS,Inter-Account Transfer,0.95
-2026-04-24,9929 Debit Card Purchase Py *Ironton Self Stora,-110.67,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2026.pdf,OVERHEAD,Storage/Rent,0.88
+2026-04-24,9929 Debit Card Purchase Py *Ironton Self Stora,-110.67,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2026.pdf,VEHICLES,Fuel,0.75
 2026-04-25,ONLINE PAYMENT - THANK YOU,10000.0,debit,0.0,2009,,AMEX STATEMENT-MAY 2026.xlsx,TRANSFERS,Credit Card Payment,0.97
 2026-04-25,SWEETGREEN SHORT NORTH,-22.7,credit,0.0,,,CreditCardActivityExport (4).csv,OVERHEAD,Business Meals,0.6
 2026-04-25,IN *ZABOS CUSTOMS LLC    614-7530230  OH,-3350.0,credit,0.0,,,CreditCardActivityExport (4).csv,COGS,Subcontractor Labor,0.85
@@ -1532,13 +1532,118 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2026-05-22,Online Transfer From XXXXX9392,2500.0,credit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,TRANSFERS,Inter-Account Transfer,0.95
 2026-05-22,Corporate ACH Eepay/Garn,-1218.92,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,PAYROLL,Payroll Garnishment,0.9
 2026-05-22,Online Transfer To XXXXX8648 00048957,-2500.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_May_2026.pdf,TRANSFERS,Inter-Account Transfer,0.95
+2026-05-25,N2CO (N2CO.COM) DALLAS TX,-200.0,credit,0.0,,Business Checking,2026-06-19.pdf,OVERHEAD,Software/Subscriptions,0.92
 2026-05-26,Corporate ACH ADP Tax ADP Tax Zegt3 052203A01,-447.58,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,TAXES,Payroll Tax,0.9
 2026-05-26,Deposit,4125.0,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_May_2026.pdf,REVENUE,Customer Payment,0.65
 2026-05-26,Online Transfer To XXXXX1908 00091641,-40000.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_May_2026.pdf,TRANSFERS,Loan Repayment to Partners,0.98
+2026-05-26,"CHASE M ROWE ONLINE PAYMENT - THANK YOU -$20,000.00",-20000.0,credit,0.0,,Business Checking,2026-06-19.pdf,TRANSFERS,Credit Card Payment,0.97
 2026-05-27,Corporate ACH ACH Pmt Amex Epayment W0442,-20000.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_May_2026.pdf,TRANSFERS,Credit Card Payment,0.97
+2026-05-27,ADOBE Adobe Systems SAN JOSE CA,-26.99,credit,0.0,,Business Checking,2026-06-19.pdf,OVERHEAD,Software/Subscriptions,0.92
 2026-05-28,Corporate ACH Eepay/Garn,-246.34,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_May_2026.pdf,PAYROLL,Payroll Garnishment,0.9
+2026-05-28,RUNWAY STANDARD PLAN NEW YORK NY,-15.0,credit,0.0,,Business Checking,2026-06-19.pdf,OVERHEAD,Software/Subscriptions,0.92
 2026-05-29,Deposit,1725.0,credit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,REVENUE,Customer Payment,0.65
 2026-05-29,3533 Debit Card Purchase Tractor Supply #1392,-72.53,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,COGS,Supplies and Materials,0.92
 2026-05-29,POS Purchase Marathon 18851 Erlanger Ky POS13699601 1797198,-100.0,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,VEHICLES,Fuel,0.92
 2026-05-29,POS Purchase Lowe's #11 Cincinnati Oh POS001 1797199,-159.94,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,COGS,Supplies and Materials,0.92
+2026-05-29,ROOF MAXX WESTERVILLE OH,-1902.58,credit,0.0,,Business Checking,2026-06-19.pdf,COGS,Roof Maxx Product,0.95
+2026-05-29,ROOF MAXX WESTERVILLE OH,-626.46,credit,0.0,,Business Checking,2026-06-19.pdf,COGS,Roof Maxx Product,0.95
+2026-05-29,MARATHON 214494 MINFORD OH,-89.79,credit,0.0,,Business Checking,2026-06-19.pdf,VEHICLES,Fuel,0.92
+2026-05-30,COMPANYCAM LINCOLN NE,-197.64,credit,0.0,,Business Checking,2026-06-19.pdf,OVERHEAD,Software/Subscriptions,0.95
+2026-06-01,"CHASE M ROWE ONLINE PAYMENT - THANK YOU -$13,500.00",-13500.0,credit,0.0,,Business Checking,2026-06-19.pdf,TRANSFERS,Credit Card Payment,0.97
+2026-06-01,MARATHON 180695 IRONTON OH,-53.31,credit,0.0,,Business Checking,2026-06-19.pdf,VEHICLES,Fuel,0.92
+2026-06-01,Debit Card Credit Abc Supply -069,232.85,credit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,COGS,Supplies and Materials,0.95
+2026-06-01,3533 Debit Card Purchase Abc Supply -069,-419.83,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,COGS,Supplies and Materials,0.95
+2026-06-01,POS Purchase Lowe's #11 Cincinnati Oh POS001 5569044,-81.86,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,COGS,Supplies and Materials,0.92
+2026-06-01,Corporate ACH ADP Tax ADP Tax Zefik 052903A01,-59.19,debit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,TAXES,Payroll Tax,0.9
+2026-06-02,INDEED JOBS AUSTIN TX,-352.24,credit,0.0,,Business Checking,2026-06-19.pdf,MARKETING,Recruiting,0.85
+2026-06-02,BLS*ROOF MAXX WESTERVILLE OH,-3320.17,credit,0.0,,Business Checking,2026-06-19.pdf,COGS,Roof Maxx Product,0.95
+2026-06-02,SPEEDWAY 45548 000045548 COAL GROVE OH,-119.27,credit,0.0,,Business Checking,2026-06-19.pdf,VEHICLES,Fuel,0.95
+2026-06-02,POS Purchase Lowe's #11 Cincinnati Oh POS001 1570736,-75.0,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,COGS,Supplies and Materials,0.92
+2026-06-02,POS Purchase Speedway 45592 Cincinnati Oh POS927POS01 1570737,-112.47,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,VEHICLES,Fuel,0.95
+2026-06-02,Corporate ACH ACH Pmt Amex Epayment W1926,-13500.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,TRANSFERS,Credit Card Payment,0.97
+2026-06-02,Loan Payment 00000 7003047800056270 53000411,-753.2,debit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,TRANSFERS,Line of Credit Payment,0.98
+2026-06-03,LOWE'S WHEELERSBURG OH,-88.95,credit,0.0,,Business Checking,2026-06-19.pdf,COGS,Supplies and Materials,0.92
+2026-06-03,INTUIT QUICKBOOKS 800-446-8848 CA,-38.88,credit,0.0,,Business Checking,2026-06-19.pdf,OVERHEAD,Software/Subscriptions,0.92
+2026-06-03,INTUIT QUICKBOOKS 800-446-8848 CA,-124.2,credit,0.0,,Business Checking,2026-06-19.pdf,OVERHEAD,Software/Subscriptions,0.92
+2026-06-03,ROOF MAXX WESTERVILLE OH,-2000.0,credit,0.0,,Business Checking,2026-06-19.pdf,COGS,Roof Maxx Product,0.95
+2026-06-03,Deposit,1200.0,credit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,REVENUE,Customer Payment,0.65
+2026-06-03,Deposit,3711.0,credit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,REVENUE,Customer Payment,0.65
+2026-06-03,Deposit,3842.71,credit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,REVENUE,Customer Payment,0.65
+2026-06-04,LOWE'S WHEELERSBURG OH,-79.27,credit,0.0,,Business Checking,2026-06-19.pdf,COGS,Supplies and Materials,0.92
+2026-06-04,PAYIDW.COM* -QB1316883 WEST SALEM WI,-420.59,credit,0.0,,Business Checking,2026-06-19.pdf,OVERHEAD,Software/Subscriptions,0.92
+2026-06-04,ROOF MAXX WESTERVILLE OH,-4500.0,credit,0.0,,Business Checking,2026-06-19.pdf,COGS,Roof Maxx Product,0.95
+2026-06-04,MARATHON 275297 GREENUP KY,-7.99,credit,0.0,,Business Checking,2026-06-19.pdf,VEHICLES,Fuel,0.92
+2026-06-04,3533 Debit Card Purchase Py *Beechmont Self Sto,-67.17,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,OVERHEAD,Storage/Rent,0.88
+2026-06-04,3533 Debit Card Purchase Officemax/Depot 6176,-13.75,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,OVERHEAD,Office Supplies,0.82
+2026-06-04,POS Purchase Lowe's #11 Cincinnati Oh POS001 1682148,-267.34,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,COGS,Supplies and Materials,0.92
+2026-06-05,0915 Debit Card Purchase Gccc Vine St. Garage,-16.0,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,OVERHEAD,Travel,0.85
+2026-06-05,Deposit,5100.0,credit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,REVENUE,Customer Payment,0.65
+2026-06-05,Corporate ACH Deposit,5750.0,credit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,REVENUE,Customer Payment,0.7
+2026-06-05,Corporate ACH Tran Fee,-171.93,debit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,OVERHEAD,Bank Fees/Interest,0.92
+2026-06-06,LOWES OF BURLINGTON SOUTH POINT OH,-116.73,credit,0.0,,Business Checking,2026-06-19.pdf,COGS,Supplies and Materials,0.92
+2026-06-08,MURPHY EXPRESS SOUTH POINT OH,-86.17,credit,0.0,,Business Checking,2026-06-19.pdf,VEHICLES,Fuel,0.92
+2026-06-08,Deposit,2700.0,credit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,REVENUE,Customer Payment,0.65
+2026-06-08,Corporate ACH Eepay/Garn,-1288.65,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,PAYROLL,Payroll Garnishment,0.9
+2026-06-08,POS Purchase Py *Ironton SE Ironton Oh POS03122301 5435395,-110.67,debit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,VEHICLES,Fuel,0.75
+2026-06-09,POS Purchase Speedway 45592 Cincinnati Oh POSnvenco07 1507090,-110.48,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,VEHICLES,Fuel,0.95
+2026-06-09,Corporate ACH ADP Tax ADP Tax Zegt3 060504A01,-481.32,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,TAXES,Payroll Tax,0.9
+2026-06-09,9929 Recurring Debit Card Companycam Companyca,-200.49,debit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,OVERHEAD,Software/Subscriptions,0.95
+2026-06-09,Corporate ACH 8007663269 Roof Maxx 389027719,-207.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,COGS,Roof Maxx Product,0.95
 2026-06-10,THANK YOU FOR YOUR PMT 06 10 XXXX3453,7763.7,debit,0.0,,,CreditCardActivityExport (4).csv,TRANSFERS,Credit Card Payment,0.97
+2026-06-10,LOVABLE DOVER DE,-25.0,credit,0.0,,Business Checking,2026-06-19.pdf,UNKNOWN,Needs Manual Review,0.0
+2026-06-10,POS Purchase Lowe's #11 Cincinnati Oh POS001 1539290,-360.93,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,COGS,Supplies and Materials,0.92
+2026-06-10,Online Payment To 0071453453,-7763.7,debit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,TRANSFERS,Inter-Account Transfer,0.95
+2026-06-11,0915 Debit Card Purchase Ctlp*Gj Pepsi Cola Bot,-3.1,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,OVERHEAD,Business Meals,0.65
+2026-06-11,POS Purchase Wal-Mart #1961 Alexandria Ky POS19610071 1577963,-11.43,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,COGS,Supplies and Materials,0.68
+2026-06-11,Mobile Deposit,4681.37,credit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,REVENUE,Customer Payment,0.65
+2026-06-11,Mobile Deposit,613.74,credit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,REVENUE,Customer Payment,0.65
+2026-06-11,Corporate ACH Eepay/Garn,-703.16,debit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,PAYROLL,Payroll Garnishment,0.9
+2026-06-12,0915 Debit Card Purchase 4Up*New Albany Links,-14.04,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,OVERHEAD,Business Meals,0.70
+2026-06-12,POS Purchase Lowe's #10 Cold Sprgs H Ky POS001 1797050,-206.62,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,COGS,Supplies and Materials,0.92
+2026-06-12,Corporate ACH Deposit,2718.0,credit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,REVENUE,Customer Payment,0.7
+2026-06-12,Corporate ACH ADP Tax ADP Tax Zefik 061204A01,-168.97,debit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,TAXES,Payroll Tax,0.9
+2026-06-12,Corporate ACH Tran Fee,-81.27,debit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,OVERHEAD,Bank Fees/Interest,0.92
+2026-06-14,IDEOGRAM AI TORONTO,-20.0,credit,0.0,,Business Checking,2026-06-19.pdf,OVERHEAD,Software/Subscriptions,0.92
+2026-06-15,"CHASE M ROWE ONLINE PAYMENT - THANK YOU -$19,724.45",-19724.45,credit,0.0,,Business Checking,2026-06-19.pdf,TRANSFERS,Credit Card Payment,0.97
+2026-06-15,Deposit,4467.75,credit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,REVENUE,Customer Payment,0.65
+2026-06-15,POS Purchase Lowe's #11 Cincinnati Oh POS001 5459990,-287.26,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,COGS,Supplies and Materials,0.92
+2026-06-15,Corporate ACH Fndtn Fin,2141.0,credit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,REVENUE,Customer Financing,0.85
+2026-06-16,BT*IPOSTAL*RENEWAL MONTEBELLO NY,-14.99,credit,0.0,,Business Checking,2026-06-19.pdf,OVERHEAD,Software/Subscriptions,0.82
+2026-06-16,IN *FINAL ORBIT POWELL OH,-2500.0,credit,0.0,,Business Checking,2026-06-19.pdf,OVERHEAD,Software/Subscriptions,0.95
+2026-06-16,MARATHON 180687 IRONTON OH,-100.0,debit,0.0,3453,Credit Card,PNC_Cash_Rewards_Visa_Signature_Business_x3453_June_2026.pdf,VEHICLES,Fuel,0.92
+2026-06-16,FSP*OIL CHANGERS 911 PLEASANTON CA,-117.72,debit,0.0,3453,Credit Card,PNC_Cash_Rewards_Visa_Signature_Business_x3453_June_2026.pdf,VEHICLES,Maintenance,0.92
+2026-06-16,0915 Debit Card Purchase Tmobile*Postpaid Ivr,-429.8,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,OVERHEAD,Phone/Utilities,0.92
+2026-06-16,POS Purchase Lowe's #11 Cincinnati Oh POS001 1589465,-786.13,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,COGS,Supplies and Materials,0.92
+2026-06-16,Corporate ACH ACH Pmt Amex Epayment W1400,-19724.45,debit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,TRANSFERS,Credit Card Payment,0.97
+2026-06-17,SUNOCO 0453493900 PIKETON OH,-82.71,credit,0.0,,Business Checking,2026-06-19.pdf,VEHICLES,Fuel,0.92
+2026-06-17,0915 Debit Card Purchase Shell Oil 57442272001,-12.86,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,VEHICLES,Fuel,0.92
+2026-06-17,3533 Debit Card Purchase Shell Oil13207032015,-75.0,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,VEHICLES,Fuel,0.92
+2026-06-17,POS Purchase Lowe's #11 Cincinnati Oh POS001 1593628,-34.0,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,COGS,Supplies and Materials,0.92
+2026-06-18,ROOF MAXX WESTERVILLE OH,-1763.46,credit,0.0,,Business Checking,2026-06-19.pdf,COGS,Roof Maxx Product,0.95
+2026-06-18,POS Purchase Sunoco 0579455 Cold Spring POS27472204 1662440,-86.09,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,VEHICLES,Fuel,0.92
+2026-06-18,Corporate ACH Eepay/Garn,-1751.46,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,PAYROLL,Payroll Garnishment,0.9
+2026-06-18,9929 Debit Card Purchase Amazon Mktpl*Y14722C53,-140.89,debit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,COGS,Supplies and Materials,0.7
+2026-06-19,GEICO COMMERCIAL 866-509-9444 VA,-1497.42,credit,0.0,,Business Checking,2026-06-19.pdf,OVERHEAD,Insurance Expenses,0.92
+2026-06-19,CHASE M ROWE ANNUAL FEE,-895.0,credit,0.0,,Business Checking,2026-06-19.pdf,OVERHEAD,Bank Fees/Interest,0.85
+2026-06-19,ROCKY WHITE ANNUAL FEE,-400.0,credit,0.0,,Business Checking,2026-06-19.pdf,OVERHEAD,Bank Fees/Interest,0.85
+2026-06-22,POS Purchase Lowe's #54 Mason Oh POS001 7675060,-43.21,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,COGS,Supplies and Materials,0.92
+2026-06-22,POS Purchase BP#3852035Moun Mount Sterli Oh POS38611501 7719094,-9.5,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,VEHICLES,Fuel,0.92
+2026-06-22,POS Purchase Speedway 45592 Cincinnati Oh POSnvenco09 7675061,-74.68,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,VEHICLES,Fuel,0.95
+2026-06-22,Corporate ACH ADP Tax ADP Tax Zegt3 062205A01,-700.82,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,TAXES,Payroll Tax,0.9
+2026-06-22,Mobile Deposit,2500.0,credit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,REVENUE,Customer Payment,0.65
+2026-06-22,Mobile Deposit,1500.0,credit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,REVENUE,Customer Payment,0.65
+2026-06-22,Corporate ACH Deposit,7934.3,credit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,REVENUE,Customer Payment,0.7
+2026-06-22,Corporate ACH Tran Fee,-237.24,debit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,OVERHEAD,Bank Fees/Interest,0.92
+2026-06-23,Deposit,7894.2,credit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,REVENUE,Customer Payment,0.65
+2026-06-25,Corporate ACH Eepay/Garn,-1498.39,debit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,PAYROLL,Payroll Garnishment,0.9
+2026-06-26,Corporate ACH Deposit,11832.0,credit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,REVENUE,Customer Payment,0.7
+2026-06-26,Corporate ACH ACH Pmt Amex Epayment W8182,-2500.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,TRANSFERS,Credit Card Payment,0.97
+2026-06-26,Corporate ACH ADP Tax ADP Tax Zefik 062605A01,-442.43,debit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,TAXES,Payroll Tax,0.9
+2026-06-26,Corporate ACH Tran Fee,-295.8,debit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,OVERHEAD,Bank Fees/Interest,0.92
+2026-06-29,0915 Debit Card Purchase C.T.A.M. Paris Fr,-54.89,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,OVERHEAD,Travel,0.90
+2026-06-29,0915 Debit Card Purchase Sumup Saint-Brice Fr,-18.3,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,OVERHEAD,Travel,0.90
+2026-06-29,POS Purchase BP#89329151245 Wilmington Oh POS38894201 5584760,-97.59,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,VEHICLES,Fuel,0.92
+2026-06-29,Intl Purch & Adv Fee Vis 0627 Fr,-1.65,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,OVERHEAD,Travel,0.90
+2026-06-29,Mobile Deposit,2894.0,credit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,REVENUE,Customer Payment,0.65
+2026-06-30,0915 Debit Card Purchase Sc-Presse Morau Paris,-4.92,debit,0.0,8648,Business Checking,Business_Checking_x8648_June_2026.pdf,OVERHEAD,Travel,0.90
+2026-06-30,POS Purchase Py *Ironton SE Ironton Oh POS03122301 1632040,-110.67,debit,0.0,9392,Business Checking,Business_Checking_x9392_June_2026.pdf,VEHICLES,Fuel,0.75
