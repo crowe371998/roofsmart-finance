@@ -1368,7 +1368,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2026-04-23,Deposit,7500.0,credit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_April_2026.pdf,REVENUE,Customer Payment,0.65
 2026-04-23,Corporate ACH Eepay/Garn,-811.44,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_April_2026.pdf,PAYROLL,Payroll Garnishment,0.9
 2026-04-23,Corporate ACH Eepay/Garn,-2907.83,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2026.pdf,PAYROLL,Payroll Garnishment,0.9
-2026-04-23,Withdrawal,-7500.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2026.pdf,TRANSFERS,Cash Withdrawal,0.7
+2026-04-23,Withdrawal,-7500.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_April_2026.pdf,TRANSFERS,Inter-Account Transfer,0.98
 2026-04-23,O'DELL LUMBER,-128.69,credit,0.0,,,CreditCardActivityExport (4).csv,COGS,Supplies and Materials,0.92
 2026-04-23,O'DELL LUMBER GALLIPOLIS OH,-128.69,debit,0.0,3453,Credit Card,PNC_Cash_Rewards®_Visa_Signature®_Business_x3453_May_2026.pdf,COGS,Supplies and Materials,0.92
 2026-04-24,Corporate ACH ADP TaxADP Tax Zegt3 042401A01,-255.12,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_April_2026.pdf,TAXES,Payroll Tax,0.9
