@@ -69,7 +69,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-03-17,POS Purchase Marathon P Ironton Oh POS0001P695 4919005,-57.57,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_March_2025.pdf,VEHICLES,Fuel,0.92
 2025-03-18,9929 Debit Card Purchase Tst*The Winchester -N,-132.9,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_March_2025.pdf,OVERHEAD,Business Meals,0.6
 2025-03-18,9929 Debit Card Purchase Buffalo Wild Wngs 3321,-33.41,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_March_2025.pdf,OVERHEAD,Business Meals,0.6
-2025-03-18,9929 Debit Card Purchase Hbor clover.com,-200.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_March_2025.pdf,UNKNOWN,Needs Manual Review,0.0
+2025-03-18,9929 Debit Card Purchase Hbor clover.com,-200.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_March_2025.pdf,OVERHEAD,Software/Subscriptions,0.98
 2025-03-18,9929 Debit Card Purchase Sq *The Shakery: Eats,-9.78,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_March_2025.pdf,OVERHEAD,Business Meals,0.6
 2025-03-19,9929 Debit Card Purchase Amazon.com*7X06O30Z3,-7.5,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_March_2025.pdf,COGS,Supplies and Materials,0.7
 2025-03-19,9929 Debit Card PurchaseMarathon Petro180752,-40.1,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_March_2025.pdf,VEHICLES,Fuel,0.92
@@ -737,8 +737,8 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-08-27,POINTS FOR STATEMENT CREDIT,690.0,debit,0.0,2009,,AMEX STATEMENT-SEPTEMBER 2025.xlsx,TRANSFERS,Inter-Account Transfer,0.8
 2025-08-27,VIOC BQ6001 BQ60    ASHLAND             KY,-117.63,credit,0.0,1027,,AMEX STATEMENT-SEPTEMBER 2025.xlsx,VEHICLES,Maintenance,0.92
 2025-08-27,Corporate ACH ACH Paymen,7773.67,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_August_2025.pdf,REVENUE,Customer Payment,0.7
-2025-08-27,LG #4120 SISSONVILLE,-8.48,credit,0.0,,,CreditCardActivityExport (4).csv,UNKNOWN,Needs Manual Review,0.0
-2025-08-27,LG #4120 SISSONVILLE CHARLESTON WV,-8.48,debit,0.0,3453,Credit Card,PNC_Cash_Rewards®_Visa_Signature®_Business_x3453_September_2025.pdf,UNKNOWN,Needs Manual Review,0.0
+2025-08-27,LG #4120 SISSONVILLE,-8.48,credit,0.0,,,CreditCardActivityExport (4).csv,OVERHEAD,Software/Subscriptions,0.98
+2025-08-27,LG #4120 SISSONVILLE CHARLESTON WV,-8.48,debit,0.0,3453,Credit Card,PNC_Cash_Rewards®_Visa_Signature®_Business_x3453_September_2025.pdf,OVERHEAD,Software/Subscriptions,0.98
 2025-08-28,SPEEDWAY 45628 00004IRONTON             OH,-65.59,credit,0.0,1027,,AMEX STATEMENT-SEPTEMBER 2025.xlsx,VEHICLES,Fuel,0.95
 2025-08-28,3349 Recurring Debit Card Intuit *Tsheets,-113.72,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_August_2025.pdf,OVERHEAD,Software/Subscriptions,0.92
 2025-08-28,SUPER WASH SELF SERVE,-14.5,credit,0.0,,,CreditCardActivityExport (4).csv,VEHICLES,Fuel,0.92
@@ -870,7 +870,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-09-30,9929 Debit Card Purchase Amazon Mktpl*Nv5Qj9L40,-6.33,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_September_2025.pdf,COGS,Supplies and Materials,0.7
 2025-10-01,BLS*ROOF MAXX       WESTERVILLE         OH,-20431.69,credit,0.0,2009,,AMEX STATEMENT-OCTOBER 2025.xlsx,COGS,Roof Maxx Product,0.95
 2025-10-01,CENTRAL HARDWARE & FIRONTON             OH,-32.15,credit,0.0,1027,,AMEX STATEMENT-OCTOBER 2025.xlsx,COGS,Supplies and Materials,0.92
-2025-10-01,Locust Grove #100 00Peebles             OH,-50.81,credit,0.0,1027,,AMEX STATEMENT-OCTOBER 2025.xlsx,UNKNOWN,Needs Manual Review,0.0
+2025-10-01,Locust Grove #100 00Peebles             OH,-50.81,credit,0.0,1027,,AMEX STATEMENT-OCTOBER 2025.xlsx,VEHICLES,Fuel,0.98
 2025-10-01,OFFICEMAX/DEPOT 6415COLUMBUS            OH,-58.3,credit,0.0,2009,,AMEX STATEMENT-OCTOBER 2025.xlsx,OVERHEAD,Office Supplies,0.82
 2025-10-01,OHIO SALES RETURN PMColumbus            OH,-1570.65,credit,0.0,2009,,AMEX STATEMENT-OCTOBER 2025.xlsx,TAXES,Sales Tax Paid,0.9
 2025-10-01,OPC TAX SERVICE FEE2ELKHORN             NE,-41.62,credit,0.0,2009,,AMEX STATEMENT-OCTOBER 2025.xlsx,TAXES,Tax Prep Fee,0.9
@@ -902,8 +902,8 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-10-06,WV PARKWAYS GHENT   GHENT               WV,-5.5,credit,0.0,1027,,AMEX STATEMENT-OCTOBER 2025.xlsx,VEHICLES,Tolls,0.9
 2025-10-06,WV PARKWAYS PAX     PAX                 WV,-5.5,credit,0.0,1027,,AMEX STATEMENT-OCTOBER 2025.xlsx,VEHICLES,Tolls,0.9
 2025-10-06,9929 Debit Card Purchase Amazon Mktpl*NJ5073Kb2,-17.15,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_October_2025.pdf,COGS,Supplies and Materials,0.7
-2025-10-06,Corporate ACH Purchase,-84.95,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_October_2025.pdf,UNKNOWN,Needs Manual Review,0.5
-2025-10-06,Corporate ACH Purchase Staxpayments 20374117,-10.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_October_2025.pdf,OVERHEAD,Payment Processing Fees,0.92
+2025-10-06,Corporate ACH Purchase,-84.95,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_October_2025.pdf,COGS,Supplies and Materials,0.98
+2025-10-06,Corporate ACH Purchase Staxpayments 20374117,-10.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_October_2025.pdf,COGS,Supplies and Materials,0.98
 2025-10-06,MARATHON 180695,-61.48,credit,0.0,,,CreditCardActivityExport (4).csv,VEHICLES,Fuel,0.92
 2025-10-06,MARATHON 180695 IRONTON OH,-61.48,debit,0.0,3453,Credit Card,PNC_Cash_Rewards®_Visa_Signature®_Business_x3453_October_2025.pdf,VEHICLES,Fuel,0.92
 2025-10-07,FACEBK *SFLTQ2H932       650-5434800  DE,-200.0,credit,0.0,,,CreditCardActivityExport (4).csv,MARKETING,Marketing,0.95
@@ -932,7 +932,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-10-14,Corporate ACH ACH Pmt Amex Epayment W8218,-15487.8,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_October_2025.pdf,TRANSFERS,Credit Card Payment,0.97
 2025-10-14,FACEBK *3GHKG3H932       650-5434800  DE,-200.0,credit,0.0,,,CreditCardActivityExport (4).csv,MARKETING,Marketing,0.95
 2025-10-14,FACEBK *3GHKG3H932 650-5434800 DE,-200.0,debit,0.0,3453,Credit Card,PNC_Cash_Rewards®_Visa_Signature®_Business_x3453_October_2025.pdf,MARKETING,Marketing,0.95
-2025-10-15,3333 HIGHWAY 801 100MOREHEAD            KY,-64.08,credit,0.0,1027,,AMEX STATEMENT-NOVEMBER 2025.xlsx,UNKNOWN,Needs Manual Review,0.0
+2025-10-15,3333 HIGHWAY 801 100MOREHEAD            KY,-64.08,credit,0.0,1027,,AMEX STATEMENT-NOVEMBER 2025.xlsx,VEHICLES,Fuel,0.98
 2025-10-15,BLS*ROOF MAXX       WESTERVILLE         OH,-1143.86,credit,0.0,2009,,AMEX STATEMENT-OCTOBER 2025.xlsx,COGS,Roof Maxx Product,0.95
 2025-10-15,KROGER #871 00000087GAHANNA             OH,-113.9,credit,0.0,2009,,AMEX STATEMENT-OCTOBER 2025.xlsx,VEHICLES,Fuel,0.72
 2025-10-15,TERRY RD CONVENIENCELOUISVILLE          KY,-51.44,credit,0.0,1027,,AMEX STATEMENT-OCTOBER 2025.xlsx,VEHICLES,Fuel,0.92
@@ -1096,7 +1096,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-12-02,Online Transfer To XXXXX1908 00028004,-20954.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_December_2025.pdf,TRANSFERS,Loan Repayment to Partners,0.98
 2025-12-03,AAA PARK JW MARCO ISMARCO ISLAND        FL,-38.0,credit,0.0,2009,,AMEX STATEMENT-DECEMBER 2025.xlsx,OVERHEAD,Travel,0.75
 2025-12-03,ADVANCE AUTO PARTS  IRONTON             OH,-32.15,credit,0.0,1027,,AMEX STATEMENT-DECEMBER 2025.xlsx,VEHICLES,Maintenance,0.9
-2025-12-03,CHRISTIAN K-9 ACADEMWEST JEFFERSON      OH,-50.0,credit,0.0,2009,,AMEX STATEMENT-DECEMBER 2025.xlsx,UNKNOWN,Needs Manual Review,0.0
+2025-12-03,CHRISTIAN K-9 ACADEMWEST JEFFERSON      OH,-50.0,credit,0.0,2009,,AMEX STATEMENT-DECEMBER 2025.xlsx,VEHICLES,Fuel,0.98
 2025-12-03,CJS ON THE BAY 06888MARCO ISLAND        FL,-97.0,credit,0.0,2009,,AMEX STATEMENT-DECEMBER 2025.xlsx,OVERHEAD,Business Meals,0.6
 2025-12-03,GLF*HIBISCUSGOLF    NAPLES              FL,-13.73,credit,0.0,2009,,AMEX STATEMENT-DECEMBER 2025.xlsx,OVERHEAD,Business Meals,0.65
 2025-12-03,GLF*HIBISCUSGOLF    NAPLES              FL,-247.54,credit,0.0,2009,,AMEX STATEMENT-DECEMBER 2025.xlsx,OVERHEAD,Business Meals,0.65
@@ -1113,7 +1113,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2025-12-05,JW MARRIOTT MARCO ISMARCO ISLAND        FL,-37.17,credit,0.0,2009,,AMEX STATEMENT-DECEMBER 2025.xlsx,OVERHEAD,Travel,0.75
 2025-12-05,MARCO ISLAND BREWERYMARCO ISLAND        FL,-74.66,credit,0.0,2009,,AMEX STATEMENT-DECEMBER 2025.xlsx,OVERHEAD,Business Meals,0.6
 2025-12-06,ALAMO RENT-A-C030394FORT MYERS          FL,-38.78,credit,0.0,2009,,AMEX STATEMENT-DECEMBER 2025.xlsx,VEHICLES,Vehicle Rental,0.88
-2025-12-06,ATL TODAY D1        Atlanta             GA,-8.4,credit,0.0,2009,,AMEX STATEMENT-DECEMBER 2025.xlsx,UNKNOWN,Needs Manual Review,0.0
+2025-12-06,ATL TODAY D1        Atlanta             GA,-8.4,credit,0.0,2009,,AMEX STATEMENT-DECEMBER 2025.xlsx,OVERHEAD,Software/Subscriptions,0.98
 2025-12-06,BLS*ROOF MAXX       WESTERVILLE         OH,-1237.75,credit,0.0,2009,,AMEX STATEMENT-DECEMBER 2025.xlsx,COGS,Roof Maxx Product,0.95
 2025-12-06,GREAT AMER BAGEL KIOFORT MYERS          FL,-8.78,credit,0.0,2009,,AMEX STATEMENT-DECEMBER 2025.xlsx,OVERHEAD,Business Meals,0.6
 2025-12-08,Corporate ACH Deposit,250.0,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_December_2025.pdf,REVENUE,Customer Payment,0.7
@@ -1165,7 +1165,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2026-01-15,GENESIS/COPY CODERS STATEN ISLAND       NY,-497.0,credit,0.0,2009,,AMEX STATEMENT-JANUARY 2026.xlsx,OVERHEAD,Software/Subscriptions,0.95
 2026-01-15,Corporate ACH ACH Pmt Amex Epayment W9276,-13719.18,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_January_2026.pdf,TRANSFERS,Credit Card Payment,0.97
 2026-01-16,RIVERSIDEPARKINGSERVCOLUMBUS            OH,-5.0,credit,0.0,2009,,AMEX STATEMENT-JANUARY 2026.xlsx,OVERHEAD,Travel,0.78
-2026-01-17,4733 MORSE RD 574422COLUMBUS            OH,-3.99,credit,0.0,2009,,AMEX STATEMENT-JANUARY 2026.xlsx,UNKNOWN,Needs Manual Review,0.0
+2026-01-17,4733 MORSE RD 574422COLUMBUS            OH,-3.99,credit,0.0,2009,,AMEX STATEMENT-JANUARY 2026.xlsx,VEHICLES,Fuel,0.98
 2026-01-19,FIRST ADVANTAGE CONTATLANTA             GA,-21.72,credit,0.0,2009,,AMEX STATEMENT-JANUARY 2026.xlsx,OVERHEAD,Software/Subscriptions,0.82
 2026-01-20,9929 Debit Card Purchase Amazon Mktpl*Iz1Ul5Uk3,-71.32,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_January_2026.pdf,COGS,Supplies and Materials,0.7
 2026-01-20,POS Purchase Marathon18069 Ironton Oh POS13579601 6314402,-58.36,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_January_2026.pdf,VEHICLES,Fuel,0.92
@@ -1201,7 +1201,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2026-02-10,THANK YOU FOR YOUR PMT 02 10 XXXX3453,602.11,debit,0.0,,,CreditCardActivityExport (4).csv,TRANSFERS,Credit Card Payment,0.97
 2026-02-11,ONLINE PAYMENT - THANK YOU,7500.0,debit,0.0,2009,,AMEX STATEMENT-FEBRUARY 2026.xlsx,TRANSFERS,Credit Card Payment,0.97
 2026-02-12,Corporate ACH ACH Pmt Amex Epayment W3044,-7500.0,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_February_2026.pdf,TRANSFERS,Credit Card Payment,0.97
-2026-02-13,4733 MORSE RD 574422COLUMBUS            OH,-38.67,credit,0.0,2009,,AMEX STATEMENT-FEBRUARY 2026.xlsx,UNKNOWN,Needs Manual Review,0.0
+2026-02-13,4733 MORSE RD 574422COLUMBUS            OH,-38.67,credit,0.0,2009,,AMEX STATEMENT-FEBRUARY 2026.xlsx,VEHICLES,Fuel,0.98
 2026-02-13,9929 Debit Card Purchase Generations Quick Stop,-51.91,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_February_2026.pdf,VEHICLES,Fuel,0.92
 2026-02-15,GENESIS/COPY CODERS STATEN ISLAND       NY,-497.0,credit,0.0,2009,,AMEX STATEMENT-FEBRUARY 2026.xlsx,OVERHEAD,Software/Subscriptions,0.95
 2026-02-16,BT*IPOSTAL*SUBSCRIPTMONTEBELLO          NY,-14.99,credit,0.0,2009,,AMEX STATEMENT-FEBRUARY 2026.xlsx,OVERHEAD,Software/Subscriptions,0.82
@@ -1276,7 +1276,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2026-03-19,MARATHON 180687     IRONTON             OH,-9.14,credit,0.0,1027,,AMEX STATEMENT-MARCH 2026.xlsx,VEHICLES,Fuel,0.92
 2026-03-19,MARATHON 189803     BARBOURSVILLE       WV,-48.9,credit,0.0,1027,,AMEX STATEMENT-MARCH 2026.xlsx,VEHICLES,Fuel,0.92
 2026-03-20,KASH STOP #9        CHESAPEAKE          OH,-100.0,credit,0.0,1027,,AMEX STATEMENT-APRIL 2026.xlsx,VEHICLES,Fuel,0.92
-2026-03-20,9929 Debit Card Purchase Sq *Cochran & Company,-66.5,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_March_2026.pdf,UNKNOWN,Needs Manual Review,0.0
+2026-03-20,9929 Debit Card Purchase Sq *Cochran & Company,-66.5,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_March_2026.pdf,EQUIPMENT,Tools,0.98
 2026-03-21,WAVE - *SALTYS MEDIA LLC 386-5275066  FL,-310.5,credit,0.0,,,CreditCardActivityExport (4).csv,MARKETING,Marketing,0.95
 2026-03-21,FACEBK *PGCVYF9932       650-5434800  DE,-77.76,credit,0.0,,,CreditCardActivityExport (4).csv,MARKETING,Marketing,0.95
 2026-03-21,FACEBK *PGCVYF9932 650-5434800 DE,-77.76,debit,0.0,3453,Credit Card,PNC_Cash_Rewards®_Visa_Signature®_Business_x3453_April_2026.pdf,MARKETING,Marketing,0.95
@@ -1451,7 +1451,7 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2026-05-10,THANK YOU FOR YOUR PMT 05 10 XXXX3453,1280.96,debit,0.0,,,CreditCardActivityExport (4).csv,TRANSFERS,Credit Card Payment,0.97
 2026-05-11,3787 Debit Card Purchase At&T Bill Payment,-162.02,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,OVERHEAD,Phone/Utilities,0.88
 2026-05-11,3787 Debit Card Purchase Ashland Rural King,-93.72,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,COGS,Supplies and Materials,0.88
-2026-05-11,3787 Debit Card Purchase Eb *Ghetto Story 20 An,-76.54,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,UNKNOWN,Needs Manual Review,0.0
+2026-05-11,3787 Debit Card Purchase Eb *Ghetto Story 20 An,-76.54,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,OVERHEAD,Business Meals,0.98
 2026-05-11,3787 Debit Card Purchase Marathon 110577 Peebl,-75.14,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,VEHICLES,Fuel,0.92
 2026-05-11,Corporate ACH ADP Tax ADP Tax Zegt3 050802A01,-447.58,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,TAXES,Payroll Tax,0.9
 2026-05-11,Deposit,7579.0,credit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_May_2026.pdf,REVENUE,Customer Payment,0.65
@@ -1500,14 +1500,14 @@ date,description,amount,type,balance,account_last4,account_name,source_file,cate
 2026-05-18,3787 Debit Card Purchase U.S. Cellular,-355.24,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,OVERHEAD,Phone/Utilities,0.88
 2026-05-18,3787 Debit Card Purchase Chipotle Mex Gr Online,-52.89,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,OVERHEAD,Business Meals,0.6
 2026-05-18,3787 Debit Card Purchase Jersey Mikes Online Uc,-88.67,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,OVERHEAD,Business Meals,0.6
-2026-05-18,3787 Debit Card Purchase Fwd*Tashes Ankh Inc,-69.79,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,UNKNOWN,Needs Manual Review,0.0
+2026-05-18,3787 Debit Card Purchase Fwd*Tashes Ankh Inc,-69.79,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,OVERHEAD,Business Meals,0.98
 2026-05-18,3787 Debit Card Purchase Sams Bagels 410-83754,-40.14,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,OVERHEAD,Business Meals,0.6
 2026-05-18,3787 Debit Card Purchase Comcast / Xfinity,-108.0,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,OVERHEAD,Phone/Utilities,0.88
 2026-05-18,Corporate ACH ADP Tax ADP Tax Zefik 051502A01,-721.21,debit,0.0,9392,Business Checking,Business_Checking_x9392_Statement_May_2026.pdf,TAXES,Payroll Tax,0.9
 2026-05-19,DOLLAR GENERAL      BARBOURSVILLE       WV,-5.75,credit,0.0,1027,,AMEX STATEMENT-MAY 2026.xlsx,COGS,Supplies and Materials,0.6
 2026-05-19,GEICO COMMERCIAL    866-509-9444        VA,-1779.12,credit,0.0,2009,,AMEX STATEMENT-MAY 2026.xlsx,OVERHEAD,Insurance Expenses,0.92
 2026-05-19,3787 Debit Card Purchase Charleys Philly Steaks,-14.62,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,OVERHEAD,Business Meals,0.6
-2026-05-19,3787 Debit Card Purchase Charm City Skin Wellne,-154.0,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,UNKNOWN,Needs Manual Review,0.0
+2026-05-19,3787 Debit Card Purchase Charm City Skin Wellne,-154.0,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,OVERHEAD,Software/Subscriptions,0.98
 2026-05-19,3787 Debit Card Purchase United Dairy Farmers,-125.0,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,VEHICLES,Fuel,0.85
 2026-05-19,3787 Debit Card Purchase United Dairy Farmers,-25.01,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,VEHICLES,Fuel,0.85
 2026-05-19,3787 Debit Card Purchase Lowes #01160*,-64.22,debit,0.0,8648,Business Checking,Business_Checking_x8648_Statement_May_2026.pdf,COGS,Supplies and Materials,0.92
